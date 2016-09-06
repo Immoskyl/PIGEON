@@ -7,6 +7,8 @@ import java.util.List;
  */
 public class Client {
 
+    // attributes
+
     private int iD;
     private static int sharedID;
 
@@ -14,7 +16,7 @@ public class Client {
     private List<Packet> packetReceived;
     private List<Packet> packetToSend;
 
-
+    //constructor + getters & setters
 
     public Client(String name) {
         this.name = name;
@@ -29,8 +31,15 @@ public class Client {
         this.name = name;
     }
 
+    public void addPacketReceived(Packet packet) {
+        this.packetReceived.add(packet);
+    }
 
+    public void addPacketToSend(Packet packet) {
+        this.packetToSend.add(packet);
+    }
 
+    //other methods
 
     private void bind() {
 
