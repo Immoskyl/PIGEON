@@ -1,5 +1,6 @@
 package frontend;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ public class Client {
     // attributes
 
     private int iD;
-    private static int sharedID;
+    private static int sharedID = 0;
 
     private String name;
     private List<Packet> packetReceived;
@@ -21,6 +22,10 @@ public class Client {
     public Client(String name) {
         this.name = name;
         this.iD += sharedID;
+    }
+
+    public int getiD() {
+        return iD;
     }
 
     public String getName() {
@@ -35,18 +40,13 @@ public class Client {
         this.packetReceived.add(packet);
     }
 
-    public void addPacketToSend(Packet packet) {
+    public void addPacketToSend(Packet packet, int clientID) {
         this.packetToSend.add(packet);
     }
 
     //other methods
-
-    private void bind() {
-
-    }
-
-    private void sendPacket() {
-
+    public Packet sendPacket(Packet packet) {
+       return packet;
     }
 
     private void encryptPacket() {
@@ -58,5 +58,8 @@ public class Client {
     }
 
     private void readReceivedPackets() {
+        for (Packet packet : packetReceived) {
+            System.out.println(controler.Controler.getClientName(packet.getiDTransmitter()) + " a dit à " + this.name + ": " + packet.getText());
+        }
     }
 }
