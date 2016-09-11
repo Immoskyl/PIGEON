@@ -18,16 +18,19 @@ public class Packet {
     //constructor + getters & setters
 
     public Packet() {
-        ++sharedID;
-        this.iD = sharedID;
+        incrementID();
     }
 
     public Packet(String text, int iDTransmitter, int iDReceiver) {
-        ++sharedID;
-        this.iD = sharedID;
+        incrementID();
         this.text = text;
         this.iDTransmitter = iDTransmitter;
         this.iDReceiver = iDReceiver;
+    }
+
+    private void incrementID () {
+        ++sharedID;
+        this.iD = sharedID;
     }
 
     public int getiD() {

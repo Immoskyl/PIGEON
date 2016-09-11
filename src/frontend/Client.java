@@ -21,10 +21,13 @@ public class Client {
 
     public Client(String name) {
         this.name = name;
+        incrementID();
+    }
+
+    private void incrementID () {
         ++sharedID;
         this.iD = sharedID;
     }
-
     public int getiD() {
         return iD;
     }
@@ -46,8 +49,25 @@ public class Client {
     }
 
     //other methods
-    public Packet sendPacket(Packet packet) {
-       return packet;
+
+    //envoie le packet avec le plus petit ID
+    public Packet selectNextPacket() {
+        return selectLowerIDPacket();
+    }
+
+    public boolean hasPacketToSend() {
+        return this.packetToSend.size() != 0;
+    }
+
+    private Packet selectLowerIDPacket() {
+        Packet firstPacket = new Packet();
+        firstPacket.setiD(0); //l'ID des packets ne peut pas etre 0
+        for (Packet packet : this.packetToSend) {
+            if (firstPacket.getiD() != 0) {
+                if (firstPacket.getiD() > packet.getiD()) {firstPacket = packet;}
+            } else {firstPacket = packet;}
+        }
+        return firstPacket;
     }
 
     private void encryptPacket() {
