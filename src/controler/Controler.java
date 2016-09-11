@@ -87,6 +87,33 @@ public class Controler {
 
         //envoi des messages
 
+        {
+            Packet packetBuffer;
+            for (Client client : clientList) {
+                while (client.hasPacketToSend()) {
+                    packetBuffer = client.selectNextPacketToSend();
+                    client.removePacketToSend(packetBuffer);
+                    clientList.get((packetBuffer.getiDReceiver())).addPacketReceived(packetBuffer);
+                }
+            }
+        }
+
+        //lecture des messages
+
+        {
+            Packet packetBuffer;
+            for (Client client : clientList) {
+
+                if (client.getPacketReceivedSize() != 0) {
+                    System.out.println(client.getName() + "a recu " + client.getPacketReceivedSize() + "messages");
+                    while (client.hasReceivedPacket()) {
+                        packetBuffer = client.selectNextPacketReceived();
+                        client.removePacketReceived(packetBuffer);
+                        System.out.println(getClientName(packetBuffer.getiDTransmitter()) + " a dit: " + packetBuffer.getText());
+                    }
+                }
+            }
+        }
 
     }
 }

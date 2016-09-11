@@ -48,21 +48,39 @@ public class Client {
         this.packetToSend.add(packet);
     }
 
-    //other methods
-
-    //envoie le packet avec le plus petit ID
-    public Packet selectNextPacket() {
-        return selectLowerIDPacket();
+    public void removePacketReceived(Packet packet) {
+        packetReceived.remove(packet);
     }
 
+    public void removePacketToSend(Packet packet) {
+        packetToSend.remove(packet);
+    }
+
+    //other methods
+
+    public Packet selectNextPacketToSend() {
+        return selectLowerIDPacket(this.packetToSend);
+    }
+
+    public Packet selectNextPacketReceived() {
+        return selectLowerIDPacket(this.packetReceived);
+    }
     public boolean hasPacketToSend() {
         return this.packetToSend.size() != 0;
     }
 
-    private Packet selectLowerIDPacket() {
+    public boolean hasReceivedPacket() {
+        return this.packetReceived.size() != 0;
+    }
+
+    public int getPacketReceivedSize() {
+        return packetReceived.size();
+    }
+
+    private Packet selectLowerIDPacket(List<Packet> list) {
         Packet firstPacket = new Packet();
         firstPacket.setiD(0); //l'ID des packets ne peut pas etre 0
-        for (Packet packet : this.packetToSend) {
+        for (Packet packet : list) {
             if (firstPacket.getiD() != 0) {
                 if (firstPacket.getiD() > packet.getiD()) {firstPacket = packet;}
             } else {firstPacket = packet;}
@@ -78,7 +96,7 @@ public class Client {
 
     }
 
-    private void readReceivedPackets() {
+    public void readReceivedPackets() {
         for (Packet packet : packetReceived) {
             System.out.println(controler.Controler.getClientName(packet.getiDTransmitter()) + " a dit à " + this.name + ": " + packet.getText());
         }
