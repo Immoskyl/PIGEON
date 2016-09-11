@@ -52,13 +52,9 @@ public class Controler {
         int intInput;
 
         System.out.println("Ajoutez un message ou laissez vide pour passer:");
-        for (Client client : clientList) {
-            System.out.println(client.getiD() + ": " + client.getName());
-        }
-
         System.out.println("Qui est l'émetteur (ID)?");
-        for (int i = 1;; ++i) {
 
+        while (true) {
 
             for (Client client : clientList) {
                 System.out.println(client.getiD() + ": " + client.getName());
@@ -93,7 +89,7 @@ public class Controler {
                 while (client.hasPacketToSend()) {
                     packetBuffer = client.selectNextPacketToSend();
                     client.removePacketToSend(packetBuffer);
-                    clientList.get((packetBuffer.getiDReceiver())).addPacketReceived(packetBuffer);
+                    clientList.get((getClientPlacement(packetBuffer.getiDReceiver()))).addPacketReceived(packetBuffer);
                 }
             }
         }
@@ -104,16 +100,26 @@ public class Controler {
             Packet packetBuffer;
             for (Client client : clientList) {
 
-                if (client.getPacketReceivedSize() != 0) {
-                    System.out.println(client.getName() + "a recu " + client.getPacketReceivedSize() + "messages");
+                switch (client.getPacketReceivedSize()) {
+                    case 0: break;
+
+                    case 1:
+                        System.out.println(client.getName() + " a recu 1 message:");
+                        packetBuffer = client.selectNextPacketReceived();
+                        client.removePacketReceived(packetBuffer);
+                        System.out.println(getClientName(packetBuffer.getiDTransmitter()) + " a dit: " + packetBuffer.getText());
+                        break;
+
+                    default:
+                    System.out.println(client.getName() + " a recu " + client.getPacketReceivedSize() + " messages");
                     while (client.hasReceivedPacket()) {
                         packetBuffer = client.selectNextPacketReceived();
                         client.removePacketReceived(packetBuffer);
                         System.out.println(getClientName(packetBuffer.getiDTransmitter()) + " a dit: " + packetBuffer.getText());
                     }
+                    break;
                 }
             }
         }
-
     }
 }
