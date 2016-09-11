@@ -28,14 +28,9 @@ public class Controler {
         return 0;
     }
 
-    public static void main(String[] args) {
-
-        Scanner scanner = new Scanner(System.in);
-
-        //création des clients
-
-
+    private static void createClients() {
         String strInput;
+        Scanner scanner = new Scanner(System.in);
 
         System.out.println("Ajoutez un Client ou laissez vide pour passer");
         while (true) {
@@ -46,10 +41,12 @@ public class Controler {
                 System.out.println("Ajoutez un autre Client ou laissez vide pour passer");
             }
         }
+    }
 
-        //création des messages
-
+    private static void createMessages() {
+        String strInput;
         int intInput;
+        Scanner scanner = new Scanner(System.in);
 
         System.out.println("Ajoutez un message ou laissez vide pour passer:");
         System.out.println("Qui est l'émetteur (ID)?");
@@ -75,51 +72,66 @@ public class Controler {
                 strInput = scanner.nextLine();
                 bufferPacket.setText(strInput);
 
+                System.out.println("Choisissez le type de cryptage utilisé pour ce message");
+                System.out.println("0: Pas de cryptage");
+                intInput = scanner.nextInt();
+                bufferPacket.setEncryptionType(intInput);
+
                 clientList.get(getClientPlacement(bufferPacket.getiDTransmitter())).addPacketToSend(bufferPacket);
 
                 System.out.println("Ajoutez un autre message en donnant le nouvel émetteur ou laissez vide pour passer");
             }
         }
 
-        //envoi des messages
+    }
 
-        {
-            Packet packetBuffer;
-            for (Client client : clientList) {
-                while (client.hasPacketToSend()) {
-                    packetBuffer = client.selectNextPacketToSend();
-                    client.removePacketToSend(packetBuffer);
-                    clientList.get((getClientPlacement(packetBuffer.getiDReceiver()))).addPacketReceived(packetBuffer);
-                }
+    private static void sendMessages() {
+        Packet packetBuffer;
+        Scanner scanner = new Scanner(System.in);
+
+        for (Client client : clientList) {
+            while (client.hasPacketToSend()) {
+                packetBuffer = client.selectNextPacketToSend();
+                client.removePacketToSend(packetBuffer);
+                clientList.get((getClientPlacement(packetBuffer.getiDReceiver()))).addPacketReceived(packetBuffer);
             }
         }
+    }
 
-        //lecture des messages
+    private static void readMessages() {
+        Packet packetBuffer;
+        Scanner scanner = new Scanner(System.in);
 
-        {
-            Packet packetBuffer;
-            for (Client client : clientList) {
+        for (Client client : clientList) {
 
-                switch (client.getPacketReceivedSize()) {
-                    case 0: break;
+            switch (client.getPacketReceivedSize()) {
+                case 0: break;
 
-                    case 1:
-                        System.out.println(client.getName() + " a recu 1 message:");
-                        packetBuffer = client.selectNextPacketReceived();
-                        client.removePacketReceived(packetBuffer);
-                        System.out.println(getClientName(packetBuffer.getiDTransmitter()) + " a dit: " + packetBuffer.getText());
-                        break;
+                case 1:
+                    System.out.println(client.getName() + " a recu 1 message:");
+                    packetBuffer = client.selectNextPacketReceived();
+                    client.removePacketReceived(packetBuffer);
+                    System.out.println(getClientName(packetBuffer.getiDTransmitter()) + " a dit: " + packetBuffer.getText());
+                    System.out.println("");
+                    break;
 
-                    default:
+                default:
                     System.out.println(client.getName() + " a recu " + client.getPacketReceivedSize() + " messages");
                     while (client.hasReceivedPacket()) {
                         packetBuffer = client.selectNextPacketReceived();
                         client.removePacketReceived(packetBuffer);
                         System.out.println(getClientName(packetBuffer.getiDTransmitter()) + " a dit: " + packetBuffer.getText());
+                        System.out.println("");
                     }
                     break;
-                }
             }
         }
+    }
+
+    public static void main(String[] args) {
+        createClients();
+        createMessages();
+        sendMessages();
+        readMessages();
     }
 }
