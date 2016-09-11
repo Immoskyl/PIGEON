@@ -14,14 +14,15 @@ public class Client {
     private static int sharedID = 0;
 
     private String name;
-    private List<Packet> packetReceived;
-    private List<Packet> packetToSend;
+    private List<Packet> packetReceived = new ArrayList<>();
+    private List<Packet> packetToSend = new ArrayList<>();
 
     //constructor + getters & setters
 
     public Client(String name) {
         this.name = name;
-        this.iD += sharedID;
+        ++sharedID;
+        this.iD = sharedID;
     }
 
     public int getiD() {
@@ -40,7 +41,7 @@ public class Client {
         this.packetReceived.add(packet);
     }
 
-    public void addPacketToSend(Packet packet, int clientID) {
+    public void addPacketToSend(Packet packet) {
         this.packetToSend.add(packet);
     }
 

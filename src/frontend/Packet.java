@@ -8,6 +8,7 @@ public class Packet {
     //attributes
 
     private int iD;
+    private static int sharedID = 0;
     private int encryptionType = 0;
     private String text;
     private int errorCode = 0;
@@ -16,8 +17,14 @@ public class Packet {
 
     //constructor + getters & setters
 
-    public Packet(int iD, String text, int iDTransmitter, int iDReceiver) {
-        this.iD = iD;
+    public Packet() {
+        ++sharedID;
+        this.iD = sharedID;
+    }
+
+    public Packet(String text, int iDTransmitter, int iDReceiver) {
+        ++sharedID;
+        this.iD = sharedID;
         this.text = text;
         this.iDTransmitter = iDTransmitter;
         this.iDReceiver = iDReceiver;
