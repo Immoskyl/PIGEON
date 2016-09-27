@@ -1,5 +1,9 @@
 package frontend;
 
+import controler.Controler;
+import cryptography.PigeonDecryption;
+import cryptography.PigeonEncryption;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,11 +92,34 @@ public class Client {
         return firstPacket;
     }
 
-    private void encryptPacket() {
+    public void encryptPacket(Packet packet) {
+        switch (packet.getEncryptionType()) {
+            case 0:
+                break;
 
+            case 1:
+                PigeonEncryption pigeon = new PigeonEncryption(Controler.getPigeonList());
+                pigeon.encryptPacket(packet);
+                break;
+            default:
+                packet.setErrorCode(1);
+                break;
+        }
     }
 
-    private void decryptPacket() {
+    public void decryptPacket(Packet packet) {
+        switch (packet.getEncryptionType()) {
+            case 0:
+                break;
+
+            case 1:
+                PigeonDecryption pigeon = new PigeonDecryption(Controler.getPigeonList());
+                pigeon.decryptPacket(packet);
+                break;
+            default:
+                packet.setErrorCode(1);
+                break;
+        }
 
     }
 

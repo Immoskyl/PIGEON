@@ -1,5 +1,6 @@
 package controler;
 
+import cryptography.PigeonGenerator;
 import frontend.Client;
 import frontend.Packet;
 
@@ -13,6 +14,7 @@ import java.util.Scanner;
 public class Controler {
 
     private static List<Client> clientList = new ArrayList<>();
+    private static List<Double> pigeonList = new ArrayList<>();
 
     public static String getClientName (int iD) {
         for (Client client : clientList) {
@@ -28,6 +30,14 @@ public class Controler {
         return 0;
     }
 
+    public static List<Double> getPigeonList() {
+        return pigeonList;
+    }
+
+    private static void createPigeon() {
+        PigeonGenerator pigeon= new PigeonGenerator();
+        pigeonList = pigeon.getPigeonList();
+    }
     private static void createClients() {
         String strInput;
         Scanner scanner = new Scanner(System.in);
@@ -74,6 +84,7 @@ public class Controler {
 
                 System.out.println("Choisissez le type de cryptage utilisé pour ce message");
                 System.out.println("0: Pas de cryptage");
+                System.out.println("1: Cryptage P.I.G.E.O.N.");
                 intInput = scanner.nextInt();
                 bufferPacket.setEncryptionType(intInput);
 
@@ -87,20 +98,19 @@ public class Controler {
 
     private static void sendMessages() {
         Packet packetBuffer;
-        Scanner scanner = new Scanner(System.in);
 
         for (Client client : clientList) {
             while (client.hasPacketToSend()) {
                 packetBuffer = client.selectNextPacketToSend();
-                client.removePacketToSend(packetBuffer);
+                client.encryptPacket(packetBuffer);
                 clientList.get((getClientPlacement(packetBuffer.getiDReceiver()))).addPacketReceived(packetBuffer);
+                client.removePacketToSend(packetBuffer);
             }
         }
     }
 
     private static void readMessages() {
         Packet packetBuffer;
-        Scanner scanner = new Scanner(System.in);
 
         for (Client client : clientList) {
 
@@ -110,18 +120,20 @@ public class Controler {
                 case 1:
                     System.out.println(client.getName() + " a recu 1 message:");
                     packetBuffer = client.selectNextPacketReceived();
-                    client.removePacketReceived(packetBuffer);
+                    client.decryptPacket(packetBuffer);
                     System.out.println(getClientName(packetBuffer.getiDTransmitter()) + " a dit: " + packetBuffer.getText());
                     System.out.println("");
+                    client.removePacketReceived(packetBuffer);
                     break;
 
                 default:
                     System.out.println(client.getName() + " a recu " + client.getPacketReceivedSize() + " messages");
                     while (client.hasReceivedPacket()) {
                         packetBuffer = client.selectNextPacketReceived();
-                        client.removePacketReceived(packetBuffer);
+                        client.decryptPacket(packetBuffer);
                         System.out.println(getClientName(packetBuffer.getiDTransmitter()) + " a dit: " + packetBuffer.getText());
                         System.out.println("");
+                        client.removePacketReceived(packetBuffer);
                     }
                     break;
             }
@@ -129,6 +141,7 @@ public class Controler {
     }
 
     public static void main(String[] args) {
+        createPigeon();
         createClients();
         createMessages();
         sendMessages();
