@@ -62,7 +62,6 @@ public class Controler {
         System.out.println("Qui est l'émetteur (ID)?");
 
         while (true) {
-
             for (Client client : clientList) {
                 System.out.println(client.getiD() + ": " + client.getName());
             }
@@ -86,11 +85,13 @@ public class Controler {
                 System.out.println("0: Pas de cryptage");
                 System.out.println("1: Cryptage P.I.G.E.O.N.");
                 intInput = scanner.nextInt();
+                scanner.nextLine();
                 bufferPacket.setEncryptionType(intInput);
 
                 clientList.get(getClientPlacement(bufferPacket.getiDTransmitter())).addPacketToSend(bufferPacket);
 
                 System.out.println("Ajoutez un autre message en donnant le nouvel émetteur ou laissez vide pour passer");
+
             }
         }
 

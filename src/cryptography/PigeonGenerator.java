@@ -1,5 +1,7 @@
 package cryptography;
 
+import frontend.Packet;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,8 +50,25 @@ public class PigeonGenerator {
         }
     }
 
+
+
+    //for test purpose
+
     public static void main(String[] args) {
         PigeonGenerator pigeon = new PigeonGenerator();
         pigeon.displayPigeonArray();
+
+        PigeonEncryption encrypt = new PigeonEncryption(pigeon.getPigeonList());
+        PigeonDecryption decrypt = new PigeonDecryption(pigeon.getPigeonList());
+
+        String testString = "Hello World!";
+        Packet testPacket = new Packet(testString, 0, 0);
+        System.out.println(testString);
+
+        encrypt.encryptPacket(testPacket);
+        System.out.println(testPacket.getText());
+
+        decrypt.decryptPacket(testPacket);
+        System.out.println(testPacket.getText());
     }
 }
