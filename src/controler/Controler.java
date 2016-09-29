@@ -58,43 +58,45 @@ public class Controler {
         int intInput;
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Ajoutez un message ou laissez vide pour passer:");
-        System.out.println("Qui est l'émetteur (ID)?");
+        if (!clientList.isEmpty()) {
+            System.out.println("Ajoutez un message ou laissez vide pour passer:");
+            System.out.println("Qui est l'émetteur (ID)?");
 
-        while (true) {
-            for (Client client : clientList) {
-                System.out.println(client.getiD() + ": " + client.getName());
-            }
+            while (true) {
+                for (Client client : clientList) {
+                    System.out.println(client.getiD() + ": " + client.getName());
+                }
 
-            strInput = scanner.nextLine();
-            if (strInput.equals("")) {break;}
-            else {
-                Packet bufferPacket = new Packet();
-                bufferPacket.setiDTransmitter(Integer.parseInt(strInput));
-
-                System.out.println("Qui est le récepteur (ID)?");
-                intInput = scanner.nextInt();
-                scanner.nextLine();
-                bufferPacket.setiDReceiver(intInput);
-
-                System.out.println("Ecrivez le texte que contriendra le message en une ligne");
                 strInput = scanner.nextLine();
-                bufferPacket.setText(strInput);
+                if (strInput.equals("")) {
+                    break;
+                } else {
+                    Packet bufferPacket = new Packet();
+                    bufferPacket.setiDTransmitter(Integer.parseInt(strInput));
 
-                System.out.println("Choisissez le type de cryptage utilisé pour ce message");
-                System.out.println("0: Pas de cryptage");
-                System.out.println("1: Cryptage P.I.G.E.O.N.");
-                intInput = scanner.nextInt();
-                scanner.nextLine();
-                bufferPacket.setEncryptionType(intInput);
+                    System.out.println("Qui est le récepteur (ID)?");
+                    intInput = scanner.nextInt();
+                    scanner.nextLine();
+                    bufferPacket.setiDReceiver(intInput);
 
-                clientList.get(getClientPlacement(bufferPacket.getiDTransmitter())).addPacketToSend(bufferPacket);
+                    System.out.println("Ecrivez le texte que contriendra le message en une ligne");
+                    strInput = scanner.nextLine();
+                    bufferPacket.setText(strInput);
 
-                System.out.println("Ajoutez un autre message en donnant le nouvel émetteur ou laissez vide pour passer");
+                    System.out.println("Choisissez le type de cryptage utilisé pour ce message");
+                    System.out.println("0: Pas de cryptage");
+                    System.out.println("1: Cryptage P.I.G.E.O.N.");
+                    intInput = scanner.nextInt();
+                    scanner.nextLine();
+                    bufferPacket.setEncryptionType(intInput);
 
+                    clientList.get(getClientPlacement(bufferPacket.getiDTransmitter())).addPacketToSend(bufferPacket);
+
+                    System.out.println("Ajoutez un autre message en donnant le nouvel émetteur ou laissez vide pour passer");
+
+                }
             }
         }
-
     }
 
     private static void sendMessages() {

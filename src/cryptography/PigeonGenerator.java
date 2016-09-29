@@ -64,11 +64,17 @@ public class PigeonGenerator {
         String testString = "Hello World!";
         Packet testPacket = new Packet(testString, 0, 0);
         System.out.println(testString);
+        System.out.println(testPacket.getText().length() + " characters");
 
         encrypt.encryptPacket(testPacket);
         System.out.println(testPacket.getText());
 
         decrypt.decryptPacket(testPacket);
         System.out.println(testPacket.getText());
+        System.out.println(testPacket.getText().length() + " characters");
+
+
+        //the problem comes from the keys used by the encrytion  and decryption objects: THEY ARENT THE SAME
+        //otherwise the algorithm is fine at its original values
     }
 }

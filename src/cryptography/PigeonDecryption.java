@@ -24,7 +24,17 @@ public class PigeonDecryption implements IDecryption {
         for (String nextStrToDecrypt: packet.getText().split(newline)) {
             ++i;
             nextDoubleToDecrypt = Double.parseDouble(nextStrToDecrypt);
-            decryptedText += (char) (int) Math.round (Math.pow(nextDoubleToDecrypt, 1.0 / pigeonList.get(i % pigeonList.size())));
+            //test purposes
+            //orginal
+            //decryptedText += (char) Math.round (Math.pow(nextDoubleToDecrypt, 1.0 / pigeonList.get(i % pigeonList.size())));
+            System.out.println("decryption : " + pigeonList.get(i % pigeonList.size()));
+            //ascii code
+            //decryptedText += Math.round (Math.pow(nextDoubleToDecrypt, (1.0 / pigeonList.get(i % pigeonList.size()))));
+            //ascii without round
+            //decryptedText += Math.pow(nextDoubleToDecrypt, (1.0 / pigeonList.get(i % pigeonList.size())));
+            //from ascii to char
+            decryptedText += (char) Math.round (nextDoubleToDecrypt);
+            decryptedText += " ";
         }
         packet.setText(decryptedText);
         packet.setEncryptionType(0);

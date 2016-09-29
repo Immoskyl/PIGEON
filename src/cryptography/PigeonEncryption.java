@@ -18,15 +18,19 @@ public class PigeonEncryption implements IEncryption {
 
     public void encryptPacket (Packet packet) {
 
-        //List<Double> encryptedText = new ArrayList<>(packet.getText().length());
         String encryptedText = "";
         char nextCharToCrypt;
         String newline = System.getProperty("line.separator");
 
         for (int i = 0; i != packet.getText().length(); ++i) {
             nextCharToCrypt = packet.getText().charAt(i);
-            //encryptedText.add(Math.pow((int) nextCharToCrypt, pigeonList.get(i % pigeonList.size()));
-            encryptedText += String.valueOf(Math.pow((int) nextCharToCrypt, pigeonList.get(i % pigeonList.size()))) + newline;
+            //test purposes
+            //original
+            //encryptedText += String.valueOf(Math.pow((int) nextCharToCrypt, pigeonList.get(i % pigeonList.size()))) + newline;
+            System.out.println("encryption : " + pigeonList.get(i % pigeonList.size()));
+            //ascii code
+            encryptedText += String.valueOf((int) nextCharToCrypt) + newline;
+
         }
         packet.setText(encryptedText);
         packet.setEncryptionType(1);
