@@ -83,9 +83,9 @@ public class Controler {
                     strInput = scanner.nextLine();
                     bufferPacket.setText(strInput);
 
-                    System.out.println("Choisissez le type de cryptage utilisé pour ce message");
-                    System.out.println("0: Pas de cryptage");
-                    System.out.println("1: Cryptage P.I.G.E.O.N.");
+                    System.out.println("Choisissez le type de chiffrement utilisé pour ce message");
+                    System.out.println("0: Pas de chiffrement");
+                    System.out.println("1: Chiffrement P.I.G.E.O.N.");
                     intInput = scanner.nextInt();
                     scanner.nextLine();
                     bufferPacket.setEncryptionType(intInput);
@@ -113,8 +113,6 @@ public class Controler {
     }
 
     private static void readMessages() {
-        Packet packetBuffer;
-
         for (Client client : clientList) {
 
             switch (client.getPacketReceivedSize()) {
@@ -122,25 +120,31 @@ public class Controler {
 
                 case 1:
                     System.out.println(client.getName() + " a recu 1 message:");
-                    packetBuffer = client.selectNextPacketReceived();
-                    client.decryptPacket(packetBuffer);
-                    System.out.println(getClientName(packetBuffer.getiDTransmitter()) + " a dit: " + packetBuffer.getText());
-                    System.out.println("");
-                    client.removePacketReceived(packetBuffer);
+                    readMessage(client);
                     break;
 
                 default:
                     System.out.println(client.getName() + " a recu " + client.getPacketReceivedSize() + " messages");
                     while (client.hasReceivedPacket()) {
-                        packetBuffer = client.selectNextPacketReceived();
-                        client.decryptPacket(packetBuffer);
-                        System.out.println(getClientName(packetBuffer.getiDTransmitter()) + " a dit: " + packetBuffer.getText());
-                        System.out.println("");
-                        client.removePacketReceived(packetBuffer);
+                        readMessage(client);
                     }
                     break;
             }
         }
+    }
+
+    private static void readMessage(Client client) {
+        Packet packetBuffer;
+        packetBuffer = client.selectNextPacketReceived();
+        readUndecryptedMessage(packetBuffer); //comment this line to hide crypted messages
+        client.decryptPacket(packetBuffer);
+        System.out.println(getClientName(packetBuffer.getiDTransmitter()) + " a dit: " + packetBuffer.getText());
+        System.out.println("");
+        client.removePacketReceived(packetBuffer);
+    }
+
+    private static void readUndecryptedMessage (Packet packet) {
+        System.out.println(packet.getText());
     }
 
     public static void main(String[] args) {

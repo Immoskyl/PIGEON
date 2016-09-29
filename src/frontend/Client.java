@@ -122,10 +122,4 @@ public class Client {
         }
 
     }
-
-    public void readReceivedPackets() {
-        for (Packet packet : packetReceived) {
-            System.out.println(controler.Controler.getClientName(packet.getiDTransmitter()) + " a dit à " + this.name + ": " + packet.getText());
-        }
-    }
 }

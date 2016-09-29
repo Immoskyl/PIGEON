@@ -67,7 +67,8 @@ public class PigeonGenerator {
         System.out.println(testPacket.getText().length() + " characters");
 
         encrypt.encryptPacket(testPacket);
-        System.out.println(testPacket.getText());
+        //System.out.println("pigeon crypté");
+        //System.out.println(testPacket.getText());
 
         decrypt.decryptPacket(testPacket);
         System.out.println(testPacket.getText());
