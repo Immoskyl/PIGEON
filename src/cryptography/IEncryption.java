@@ -2,10 +2,9 @@ package cryptography;
 
 import frontend.Packet;
 
-import java.util.List;
-
 /**
  * Created by immoskyl on 06/09/16.
+ * Encryption interface
  */
 public interface IEncryption {
 

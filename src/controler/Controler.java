@@ -9,7 +9,9 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * Created by immoskyl on 06/09/16.
+ * The purpose of Controler is to encapsulate all the other objects of the demo and to manage them to simulate independant behaviours
+ * It contains the psvm
+ * For these reasons, all of its methods are static, and there is no instance on contoler
  */
 public class Controler {
 
@@ -21,23 +23,30 @@ public class Controler {
             if (client.getiD() == iD) {return client.getName();}
         }
         return "";
-    }
+    } //getClientName
 
+    /**
+     * return client position in Controler.clientList when client is reffered by id
+     */
     private static int getClientPlacement (int iD) {
         for (int i = 0; i != clientList.size(); ++i) {
             if (clientList.get(i).getiD() == iD) {return i;}
         }
         return 0;
-    }
+    } //getClientPlacement
 
     public static List<Double> getPigeonList() {
         return pigeonList;
     }
 
+    /**
+     * populates the Controler.pigeonList with a PigeonGenerator instance
+     */
     private static void createPigeon() {
         PigeonGenerator pigeon= new PigeonGenerator();
         pigeonList = pigeon.getPigeonList();
-    }
+    } //getPigeonList
+
     private static void createClients() {
         String strInput;
         Scanner scanner = new Scanner(System.in);
@@ -51,7 +60,7 @@ public class Controler {
                 System.out.println("Ajoutez un autre Client ou laissez vide pour passer");
             }
         }
-    }
+    } //createClients
 
     private static void createMessages() {
         String strInput;
@@ -112,6 +121,9 @@ public class Controler {
         }
     }
 
+    /**
+     * display of received packets depending on their number
+     */
     private static void readMessages() {
         for (Client client : clientList) {
 
@@ -133,6 +145,10 @@ public class Controler {
         }
     }
 
+    /**
+     *
+     * prompt display raw and decrypted message from first paquet received by a client
+     */
     private static void readMessage(Client client) {
         Packet packetBuffer;
         packetBuffer = client.selectNextPacketReceived();
@@ -141,11 +157,11 @@ public class Controler {
         System.out.println(getClientName(packetBuffer.getiDTransmitter()) + " a dit: " + packetBuffer.getText());
         System.out.println("");
         client.removePacketReceived(packetBuffer);
-    }
+    } //readMessage
 
     private static void readUndecryptedMessage (Packet packet) {
         System.out.println(packet.getText());
-    }
+    } //readUndecryptedMessage
 
     public static void main(String[] args) {
         createPigeon();
@@ -153,5 +169,5 @@ public class Controler {
         createMessages();
         sendMessages();
         readMessages();
-    }
+    } //main
 }

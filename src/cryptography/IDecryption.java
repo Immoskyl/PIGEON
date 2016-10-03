@@ -4,6 +4,7 @@ import frontend.Packet;
 
 /**
  * Created by immoskyl on 06/09/16.
+ * Decryption interface
  */
 public interface IDecryption {
 
