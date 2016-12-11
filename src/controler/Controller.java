@@ -1,10 +1,12 @@
 package controler;
 
+import cryptography.PigeonFactory;
 import cryptography.PigeonGenerator;
+import demo.DemoFactory;
 import display.ADisplayLanguage;
 import display.DisplayFactory;
-import frontend.Client;
-import frontend.Packet;
+import demo.Client;
+import demo.Packet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +74,7 @@ public class Controler {
      * populates the Controler.pigeonList with a PigeonGenerator instance
      */
     private static void createPigeon() {
-        PigeonGenerator pigeon= new PigeonGenerator();
+        PigeonGenerator pigeon = PigeonFactory.CreatePigeonGenerator();
         pigeonList = pigeon.getPigeonList();
     } //getPigeonList
 
@@ -86,7 +88,7 @@ public class Controler {
             strInput = scanner.nextLine();
             if (strInput.equals("")) {break;}
             else {
-                clientList.add(new Client(strInput));
+                clientList.add(DemoFactory.CreateClient(strInput));
 
                 display.addAnotherClient();
 
@@ -102,7 +104,7 @@ public class Controler {
         if (!clientList.isEmpty()) {
 
             display.addMessage();
-            display.whoIsTransmiter();
+            display.whoIsTransmitter();
 
             while (true) {
                 for (Client client : clientList) {
@@ -113,7 +115,7 @@ public class Controler {
                 if (strInput.equals("")) {
                     break;
                 } else {
-                    Packet bufferPacket = new Packet();
+                    Packet bufferPacket = DemoFactory.CreatePacket();
                     bufferPacket.setiDTransmitter(Integer.parseInt(strInput));
 
                     display.whoIsReceiver();
