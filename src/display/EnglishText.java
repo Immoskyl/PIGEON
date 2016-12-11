@@ -11,19 +11,19 @@ public class EnglishText extends ADisplayLanguage {
 
 
     public void addClient() {
-        display("Ajoutez un Client ou laissez vide pour passer");
+        display("Add a new Client");
     }
 
     public void addAnotherClient() {
-        display("Ajoutez un autre Client ou laissez vide pour passer");
+        display("Add another new Client or leave blank to move on");
     }
 
     public void addMessage() {
-        display("Ajoutez un message ou laissez vide pour passer:");
+        display("Add a message or leave blank to move on:");
     }
 
     public void whoIsTransmiter() {
-        display("Qui est l'émetteur (ID)?");
+        display("Who is the tansmitter (ID)?");
     }
 
     public void whoIsReceiver() {
