@@ -6,6 +6,7 @@ import cryptography.PigeonGenerator;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Scanner;
@@ -19,27 +20,48 @@ public class Read implements FeatureStrategy {
 
     private String getFileAddress() {
         Scanner scanner = new Scanner(System.in);
-
-        Controller.getInstance().display().askForFile();
-
         return scanner.nextLine();
     } //getFileAddress()
 
     private void askPigeon() {
+        boolean success = false;
 
+        Controller.getInstance().display().askForPigeon();
+
+        while (!success) {
+            try {
+                decryption = PigeonFactory.CreatePigeonDecryption(PigeonGenerator.ParsePigeonKey(askFile()));
+                success = true;
+            } catch (IOException e) {
+                Controller.getInstance().display().fileNotFound();
+            } catch (NumberFormatException e) {
+                Controller.getInstance().display().fileEmpty();
+            }
+        }
     }
 
     private void decryptFile() {
-        try {
-            decryption = PigeonFactory.CreatePigeonDecryption(PigeonGenerator.ParsePigeonKey(askFile()));
-        }
-        catch (IOException e) {
-            e.printStackTrace();
+        boolean success = false;
+        String text;
+
+        Controller.getInstance().display().askForFile();
+
+        while(!success) {
+            try {
+                text = decryption.decryptString(askFile());
+                success = true;
+                Controller.getInstance().display().decryptedText();
+                Controller.getInstance().display().display(text);
+            } catch (IOException e) {
+                Controller.getInstance().display().fileNotFound();
+            } catch (NumberFormatException e) {
+               Controller.getInstance().display().fileEmpty();
+            }
         }
     }
 
-    private String askFile() throws IOException{
-        return readFile(getFileAddress(), Charset.defaultCharset());
+    private String askFile() throws IOException {
+        return readFile(getFileAddress(), StandardCharsets.UTF_8);
     }
 
     private String readFile(String path, Charset encoding) throws IOException {
@@ -48,14 +70,16 @@ public class Read implements FeatureStrategy {
     }
 
     public void execute() {
-        int intInput = 2;
+        int intInput;
         Scanner scanner = new Scanner(System.in);
-
 
         askPigeon();
         decryptFile();
 
-        while (intInput != 0 && intInput != 1) {
+        do {
+
+            Controller.getInstance().display().changePigeon();
+
             intInput = scanner.nextInt();
             switch (intInput) {
                 case 0 :
@@ -67,7 +91,7 @@ public class Read implements FeatureStrategy {
                 default:
                     break;
             }
-        }
+        } while (intInput != 0 && intInput != 1);
 
     }
 

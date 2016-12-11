@@ -73,4 +73,27 @@ public class EnglishText extends ADisplayLanguage {
     public void askForFile() {
         display("Enter the address or the name of the file to decrypt");
     }
+
+    public void askForPigeon() {
+        display("Enter the address or the name of the file containing the P.I.G.E.O.N. key");
+    }
+
+    public void changePigeon() {
+        display("Do you want to change P.I.G.E.O.N. key?");
+        display("0: Change encryption key");
+        display("1: Decrypt another file with the same key");
+        display("Any other number to stop");
+    }
+
+    public void fileNotFound() {
+        display("Such a file does not seem to exist. Verify and try again");
+    }
+
+    public void decryptedText() {
+        display("Decrypted text: ");
+    }
+
+    public void fileEmpty() {
+        display("This file is empty! Choose another file");
+    }
 }

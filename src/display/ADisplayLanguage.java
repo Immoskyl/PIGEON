@@ -50,6 +50,11 @@ public abstract class ADisplayLanguage {
 
     //in Read
     public abstract void askForFile();
+    public abstract void askForPigeon();
+    public abstract void changePigeon();
+    public abstract void fileNotFound();
+    public abstract void fileEmpty();
+    public abstract void decryptedText();
 
     //in Write
 }

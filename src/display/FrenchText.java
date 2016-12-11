@@ -72,4 +72,27 @@ public class FrenchText extends ADisplayLanguage {
     public void askForFile() {
         display("Rentrez l'addresse ou le nom du fichier à décrypter");
     }
+
+    public void askForPigeon() {
+        display("Rentrez l'addresse ou le nom du fichier contenant la clé P.I.G.E.O.N.");
+    }
+
+    public void changePigeon() {
+        display("Voulez-vous changer la clé P.I.G.E.O.N.?");
+        display("0: Changer la clé de chiffrement");
+        display("1: Déchiffrer un autre fichier avec la même clé");
+        display("Tout autre nombre pour arrêter");
+    }
+
+    public void fileNotFound() {
+        display("Ce fichier ne semble pas exister. Vérifiez et réésayez");
+    }
+
+    public void decryptedText() {
+        display("Texte déchiffré: ");
+    }
+
+    public void fileEmpty() {
+        display("Ce fichier est vide! Choississez un autre fichier");
+    }
 }

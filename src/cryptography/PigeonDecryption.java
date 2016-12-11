@@ -8,7 +8,7 @@ import java.util.List;
  * PigeonDecryption class
  */
 public class PigeonDecryption implements IDecryption {
-    List<Double> pigeonList;
+    private List<Double> pigeonList;
 
     public PigeonDecryption(List<Double> pigeonList) {
         this.pigeonList = pigeonList;
@@ -18,10 +18,9 @@ public class PigeonDecryption implements IDecryption {
      * decrypt the text of a given packet with the PIGEON formula
      */
     public void decryptPacket (Packet packet) {
-
         packet.setText(decryptString(packet.getText()));
         packet.setEncryptionType(0);
-    } //decryptPacket
+    } //decryptPacket()
 
     /**
      * decrypt a string with the PIGEON formula, and the PigeonList key.
@@ -38,5 +37,5 @@ public class PigeonDecryption implements IDecryption {
             ++i;
         }
         return decryptedText;
-    }
+    } //decryptString()
 }
