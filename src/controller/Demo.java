@@ -2,10 +2,8 @@ package controler;
 
 import cryptography.PigeonFactory;
 import cryptography.PigeonGenerator;
-import demo.DemoFactory;
-import display.ADisplayLanguage;
-import display.DisplayFactory;
 import demo.Client;
+import demo.DemoFactory;
 import demo.Packet;
 
 import java.util.ArrayList;
@@ -13,76 +11,66 @@ import java.util.List;
 import java.util.Scanner;
 
 /**
- * The purpose of Controler is to encapsulate all the other objects of the demo and to manage them to simulate independant behaviours
- * It contains the psvm
- * For these reasons, all of its methods are static, and there is no instance on contoler
+ * Created by immoskyl on 11/12/16.
  */
-public class Controler {
+public class Demo implements FeatureStrategy {
 
-    private static List<Client> clientList = new ArrayList<>();
-    private static List<Double> pigeonList = new ArrayList<>();
-    private static ADisplayLanguage display;
+    private static Demo instance;
+    private List<Client> clientList = new ArrayList<>();
+    private List<Double> pigeonList = new ArrayList<>();
 
-    public static String getClientName (int iD) {
+    public void execute() {
+        createPigeon();
+        createClients();
+        createMessages();
+        sendMessages();
+        readMessages();
+    }
+
+    private Demo(){}
+
+    public static Demo getInstance () {
+        if (instance == null) {
+           instance = new Demo();
+        }
+        return instance;
+    }
+
+    private String getClientName (int iD) {
         for (Client client : clientList) {
             if (client.getiD() == iD) {return client.getName();}
         }
         return "";
-    } //getClientName
+    } //getClientName()
 
     /**
      * return client position in Controler.clientList when client is reffered by id
      */
-    private static int getClientPlacement (int iD) {
+    private int getClientPlacement (int iD) {
         for (int i = 0; i != clientList.size(); ++i) {
             if (clientList.get(i).getiD() == iD) {return i;}
         }
         return 0;
-    } //getClientPlacement
+    } //getClientPlacement()
 
-    public static List<Double> getPigeonList() {
+    public List<Double> getPigeonList() {
         return pigeonList;
     }
 
 
     /**
-     * allow the user to choose their favourite language
-     * (and easy possibility to extend on a display type choice as well)
-     */
-    private static void chooseLanguage() {
-        int intInput;
-        Scanner scanner = new Scanner(System.in);
-
-        ADisplayLanguage.ChooseLanguage();
-
-        intInput = scanner.nextInt();
-
-        switch (intInput) {
-            case 1:
-                display = DisplayFactory.createEnglishText(DisplayFactory.createConsoleLineDisplay());
-                break;
-            case 2:
-                display = DisplayFactory.createFrenchText(DisplayFactory.createConsoleLineDisplay());
-                break;
-            default:
-                display = DisplayFactory.createEnglishText(DisplayFactory.createConsoleLineDisplay());
-                break;
-        }
-    } //chooseLanguage()
-
-    /**
      * populates the Controler.pigeonList with a PigeonGenerator instance
      */
-    private static void createPigeon() {
+    private void createPigeon() {
         PigeonGenerator pigeon = PigeonFactory.CreatePigeonGenerator();
         pigeonList = pigeon.getPigeonList();
-    } //getPigeonList
+    } //getPigeonList()
 
-    private static void createClients() {
+    private void createClients() {
         String strInput;
         Scanner scanner = new Scanner(System.in);
 
-        display.addClient();
+        Controller.getInstance().display().addClient();
 
         while (true) {
             strInput = scanner.nextLine();
@@ -90,25 +78,25 @@ public class Controler {
             else {
                 clientList.add(DemoFactory.CreateClient(strInput));
 
-                display.addAnotherClient();
+                Controller.getInstance().display().addAnotherClient();
 
             }
         }
-    } //createClients
+    } //createClients()
 
-    private static void createMessages() {
+    private void createMessages() {
         String strInput;
         int intInput;
         Scanner scanner = new Scanner(System.in);
 
         if (!clientList.isEmpty()) {
 
-            display.addMessage();
-            display.whoIsTransmitter();
+            Controller.getInstance().display().addMessage();
+            Controller.getInstance().display().whoIsTransmitter();
 
             while (true) {
                 for (Client client : clientList) {
-                    display.display(client.getiD() + ": " + client.getName());
+                    Controller.getInstance().display().display(client.getiD() + ": " + client.getName());
                 }
 
                 strInput = scanner.nextLine();
@@ -118,18 +106,18 @@ public class Controler {
                     Packet bufferPacket = DemoFactory.CreatePacket();
                     bufferPacket.setiDTransmitter(Integer.parseInt(strInput));
 
-                    display.whoIsReceiver();
+                    Controller.getInstance().display().whoIsReceiver();
 
                     intInput = scanner.nextInt();
                     scanner.nextLine();
                     bufferPacket.setiDReceiver(intInput);
 
-                    display.writeMessageText();
+                    Controller.getInstance().display().writeMessageText();
 
                     strInput = scanner.nextLine();
                     bufferPacket.setText(strInput);
 
-                    display.chooseEncryptionType();
+                    Controller.getInstance().display().chooseEncryptionType();
 
                     intInput = scanner.nextInt();
                     scanner.nextLine();
@@ -137,13 +125,13 @@ public class Controler {
 
                     clientList.get(getClientPlacement(bufferPacket.getiDTransmitter())).addPacketToSend(bufferPacket);
 
-                    display.addNewMessage();
+                    Controller.getInstance().display().addNewMessage();
                 }
             }
         }
-    }
+    } //createMessages()
 
-    private static void sendMessages() {
+    private void sendMessages() {
         Packet packetBuffer;
 
         for (Client client : clientList) {
@@ -154,25 +142,25 @@ public class Controler {
                 client.removePacketToSend(packetBuffer);
             }
         }
-    }
+    } //sendMessages()
 
     /**
      * display of received packets depending on their number
      */
-    private static void readMessages() {
+    private void readMessages() {
         for (Client client : clientList) {
 
             switch (client.getPacketReceivedSize()) {
                 case 0: break;
 
                 case 1:
-                    display.clientReceivedOneMessage(client.getName());
+                    Controller.getInstance().display().clientReceivedOneMessage(client.getName());
 
                     readMessage(client);
                     break;
 
                 default:
-                    display.clientReceivedSeveralMessages(client.getName(), client.getPacketReceivedSize());
+                    Controller.getInstance().display().clientReceivedSeveralMessages(client.getName(), client.getPacketReceivedSize());
 
                     while (client.hasReceivedPacket()) {
                         readMessage(client);
@@ -186,27 +174,18 @@ public class Controler {
      *
      * prompt display raw and decrypted message from first paquet received by a client
      */
-    private static void readMessage(Client client) {
+    private void readMessage(Client client) {
         Packet packetBuffer;
         packetBuffer = client.selectNextPacketReceived();
-        readUndecryptedMessage(packetBuffer); //comment this line to hide crypted messages
+        readEncryptedMessage(packetBuffer); //comment this line to hide encrypted messages
         client.decryptPacket(packetBuffer);
 
-        display.clientSaidMessage(getClientName(packetBuffer.getiDTransmitter()), packetBuffer.getText());
+        Controller.getInstance().display().clientSaidMessage(getClientName(packetBuffer.getiDTransmitter()), packetBuffer.getText());
 
         client.removePacketReceived(packetBuffer);
-    } //readMessage
+    } //readMessage()
 
-    private static void readUndecryptedMessage (Packet packet) {
-        display.display(packet.getText());
-    } //readUndecryptedMessage
-
-    public static void main(String[] args) {
-        chooseLanguage();
-        createPigeon();
-        createClients();
-        createMessages();
-        sendMessages();
-        readMessages();
-    } //main
+    private void readEncryptedMessage(Packet packet) {
+        Controller.getInstance().display().display(packet.getText());
+    } //readEncryptedMessage()
 }

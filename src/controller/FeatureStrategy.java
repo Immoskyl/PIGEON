@@ -3,5 +3,7 @@ package controler;
 /**
  * Created by immoskyl on 11/12/16.
  */
-public class Write {
+public interface FeatureStrategy {
+
+    public void execute();
 }
