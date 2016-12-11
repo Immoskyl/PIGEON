@@ -3,10 +3,10 @@ package display;
 /**
  * Created by immoskyl on 11/12/16.
  */
-public abstract class ADisplayLangugage {
+public abstract class ADisplayLanguage {
     private IDisplayType displayType;
 
-    public FrenchText(IDisplayType displayType) {
+    public ADisplayLanguage(IDisplayType displayType) {
         this.displayType = displayType;
     }
 

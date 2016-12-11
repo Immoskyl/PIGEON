@@ -1,6 +1,8 @@
 package controler;
 
 import cryptography.PigeonGenerator;
+import display.ADisplayLanguage;
+import display.DisplayFactory;
 import frontend.Client;
 import frontend.Packet;
 
@@ -17,6 +19,7 @@ public class Controler {
 
     private static List<Client> clientList = new ArrayList<>();
     private static List<Double> pigeonList = new ArrayList<>();
+    private static ADisplayLanguage display;
 
     public static String getClientName (int iD) {
         for (Client client : clientList) {
@@ -38,6 +41,32 @@ public class Controler {
     public static List<Double> getPigeonList() {
         return pigeonList;
     }
+
+
+    /**
+     * allow the user to choose their favourite language
+     * (and easy possibility to extend on a display type choice as well)
+     */
+    private static void chooseLanguage() {
+        int intInput;
+        Scanner scanner = new Scanner(System.in);
+
+        ADisplayLanguage.ChooseLanguage();
+
+        intInput = scanner.nextInt();
+
+        switch (intInput) {
+            case 1:
+                DisplayFactory.createEnglishText(DisplayFactory.createConsoleLineDisplay());
+                break;
+            case 2:
+                DisplayFactory.createFrenchText(DisplayFactory.createConsoleLineDisplay());
+                break;
+            default:
+                DisplayFactory.createEnglishText(DisplayFactory.createConsoleLineDisplay());
+                break;
+        }
+    } //chooseLanguage()
 
     /**
      * populates the Controler.pigeonList with a PigeonGenerator instance
