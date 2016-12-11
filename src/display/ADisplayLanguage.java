@@ -34,7 +34,8 @@ public abstract class ADisplayLanguage {
     public abstract void chooseEncryptionType();
     public abstract void addNewMessage();
     public abstract void clientReceivedSeveralMessages(String clientName, int numberOfMessages);
-public abstract void clientReceivedOneMessage(String clientName);
+    public abstract void clientReceivedOneMessage(String clientName);
+    public abstract void clientSaidMessage(String clientName, String message);
 
     }
 }

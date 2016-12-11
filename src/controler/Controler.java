@@ -189,13 +189,14 @@ public class Controler {
         packetBuffer = client.selectNextPacketReceived();
         readUndecryptedMessage(packetBuffer); //comment this line to hide crypted messages
         client.decryptPacket(packetBuffer);
-        System.out.println(getClientName(packetBuffer.getiDTransmitter()) + " a dit: " + packetBuffer.getText());
-        System.out.println("");
+
+        display.clientSaidMessage(getClientName(packetBuffer.getiDTransmitter()), packetBuffer.getText());
+
         client.removePacketReceived(packetBuffer);
     } //readMessage
 
     private static void readUndecryptedMessage (Packet packet) {
-        System.out.println(packet.getText());
+        display.display(packet.getText());
     } //readUndecryptedMessage
 
     public static void main(String[] args) {

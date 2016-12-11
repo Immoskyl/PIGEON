@@ -50,4 +50,9 @@ public class FrenchText extends ADisplayLanguage {
     public void clientReceivedSeveralMessages(String clientName, int numberOfMessages) {
         display(clientName + " a recu " + numberOfMessages + " messages:");
     }
+
+    public void clientSaidMessage(String clientName, String message) {
+       display(clientName + " a dit : " + message);
+       display("");
+    }
 }
