@@ -71,11 +71,11 @@ public class EnglishText extends ADisplayLanguage {
     }
 
     public void askForFile() {
-        display("Enter the address or the name of the file to decrypt");
+        display("Enter the name of the file to decrypt");
     }
 
     public void askForPigeon() {
-        display("Enter the address or the name of the file containing the P.I.G.E.O.N. key");
+        display("Enter the name of the file containing the P.I.G.E.O.N. key");
     }
 
     public void changePigeon() {

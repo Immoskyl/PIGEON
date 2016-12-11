@@ -72,6 +72,7 @@ public class Read implements FeatureStrategy {
     public void execute() {
         int intInput;
         Scanner scanner = new Scanner(System.in);
+        boolean loop = true;
 
         askPigeon();
         decryptFile();
@@ -89,9 +90,10 @@ public class Read implements FeatureStrategy {
                     decryptFile();
                     break;
                 default:
+                    loop = false;
                     break;
             }
-        } while (intInput != 0 && intInput != 1);
+        } while (loop);
 
     }
 

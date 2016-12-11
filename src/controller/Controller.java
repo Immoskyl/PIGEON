@@ -36,9 +36,6 @@ public class Controller {
         return feature;
     } //getFeatureStrategy()
 
-    public static FeatureStrategy GetFeatureStrategy() {
-        return instance.getFeatureStrategy();
-    } //getFeatureStrategy()
 
     public void executeFeature() {
         feature.execute();

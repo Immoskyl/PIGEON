@@ -70,11 +70,11 @@ public class FrenchText extends ADisplayLanguage {
     }
 
     public void askForFile() {
-        display("Rentrez l'addresse ou le nom du fichier à décrypter");
+        display("Rentrez le nom du fichier à déchiffrer");
     }
 
     public void askForPigeon() {
-        display("Rentrez l'addresse ou le nom du fichier contenant la clé P.I.G.E.O.N.");
+        display("Rentrez le nom du fichier contenant la clé P.I.G.E.O.N.");
     }
 
     public void changePigeon() {
