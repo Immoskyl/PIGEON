@@ -57,13 +57,13 @@ public class Controler {
 
         switch (intInput) {
             case 1:
-                DisplayFactory.createEnglishText(DisplayFactory.createConsoleLineDisplay());
+                display = DisplayFactory.createEnglishText(DisplayFactory.createConsoleLineDisplay());
                 break;
             case 2:
-                DisplayFactory.createFrenchText(DisplayFactory.createConsoleLineDisplay());
+                display = DisplayFactory.createFrenchText(DisplayFactory.createConsoleLineDisplay());
                 break;
             default:
-                DisplayFactory.createEnglishText(DisplayFactory.createConsoleLineDisplay());
+                display = DisplayFactory.createEnglishText(DisplayFactory.createConsoleLineDisplay());
                 break;
         }
     } //chooseLanguage()
@@ -200,6 +200,7 @@ public class Controler {
     } //readUndecryptedMessage
 
     public static void main(String[] args) {
+        chooseLanguage();
         createPigeon();
         createClients();
         createMessages();

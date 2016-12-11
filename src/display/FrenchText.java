@@ -10,7 +10,7 @@ public class FrenchText extends ADisplayLanguage {
     }
 
     public void addClient() {
-        display("Ajoutez un Client ou laissez vide pour passer");
+        display("Ajoutez un nom de Client");
     }
 
     public void addAnotherClient() {
