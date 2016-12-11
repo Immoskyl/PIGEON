@@ -69,4 +69,8 @@ public class EnglishText extends ADisplayLanguage {
         display("Thanks for testing P.I.G.E.O.N.!");
         display("Send any feedback or comment to user Immoskyl on GitHub");
     }
+
+    public void askForFile() {
+        display("Enter the address or the name of the file to decrypt");
+    }
 }

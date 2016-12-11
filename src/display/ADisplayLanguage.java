@@ -14,23 +14,27 @@ public abstract class ADisplayLanguage {
         displayType.display(s);
     } //display()
 
-    public static void ChooseLanguage () {
-        System.out.println("Choose your language:");
-        System.out.println("1: English");
-        System.out.println("2: French");
-    } //ChooseLanguage()
 
 
+
+    //-------------------------------------------------------------
+    //-------------------------------------------------------------
+
+    //general
+    public abstract void greetings();
     public void blank() {
         for (int i = 0; i != 10; ++i) {
             display("");
         }
     }
 
-    //-------------------------------------------------------------
-    //-------------------------------------------------------------
+    public static void ChooseLanguage () {
+        System.out.println("Choose your language:");
+        System.out.println("1: English");
+        System.out.println("2: French");
+    } //ChooseLanguage()
 
-
+    //in Demo
     public abstract void addClient();
     public abstract void addAnotherClient();
     public abstract void addMessage();
@@ -43,5 +47,9 @@ public abstract class ADisplayLanguage {
     public abstract void clientReceivedOneMessage(String clientName);
     public abstract void clientSaidMessage(String clientName, String message);
     public abstract void chooseFeature();
-    public abstract void greetings();
+
+    //in Read
+    public abstract void askForFile();
+
+    //in Write
 }

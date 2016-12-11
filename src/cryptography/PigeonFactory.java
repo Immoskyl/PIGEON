@@ -13,5 +13,9 @@ public class PigeonFactory {
 
     public static PigeonEncryption CreatePigeonEncryption(List<Double> pigeonList) {
         return new PigeonEncryption(pigeonList);
-    }
+    } //CreatePigeonEncryption()
+
+    public static PigeonDecryption CreatePigeonDecryption (List<Double> pigeonList) {
+        return new PigeonDecryption(pigeonList);
+    } //CreatePigeonDecryption()
 }

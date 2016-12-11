@@ -68,4 +68,8 @@ public class FrenchText extends ADisplayLanguage {
         display("Merci d'avoir testé le P.I.G.E.O.N.!");
         display("Donnez vos impressions et commentaires à l'utilisateur Immoskyl sur GitHub!");
     }
+
+    public void askForFile() {
+        display("Rentrez l'addresse ou le nom du fichier à décrypter");
+    }
 }

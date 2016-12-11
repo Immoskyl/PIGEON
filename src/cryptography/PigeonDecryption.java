@@ -15,23 +15,28 @@ public class PigeonDecryption implements IDecryption {
     } //PigeonDecryption
 
     /**
-     * decrypt the text of a given packet with the PIGEON formula, and the PigeonList key.
-     * note that the key has to be the same as the encryption one
+     * decrypt the text of a given packet with the PIGEON formula
      */
     public void decryptPacket (Packet packet) {
+
+        packet.setText(decryptString(packet.getText()));
+        packet.setEncryptionType(0);
+    } //decryptPacket
+
+    /**
+     * decrypt a string with the PIGEON formula, and the PigeonList key.
+     * note that the key has to be the same as the encryption one
+     */
+    public String decryptString(String str) {
         String decryptedText = "";
-        Double nextDoubleToDecrypt;
         Double key;
-        String newline = System.getProperty("line.separator");
         int i = 0;
 
-        for (String nextStrToDecrypt: packet.getText().split(newline)) {
-            nextDoubleToDecrypt = Double.parseDouble(nextStrToDecrypt);
+        for (Double nextDoubleToDecrypt : PigeonGenerator.ParsePigeonKey(str)) {
             key = pigeonList.get(i % pigeonList.size());
             decryptedText += (char) Math.round (Math.pow(nextDoubleToDecrypt, 1.0 / key)); //reverse PIGEON formula
             ++i;
         }
-        packet.setText(decryptedText);
-        packet.setEncryptionType(0);
-    } //decryptPacket
+        return decryptedText;
+    }
 }

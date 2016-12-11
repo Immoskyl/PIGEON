@@ -17,17 +17,17 @@ public class PigeonGenerator {
         pigeonList = generateTab(30);
     } //PigeonGenerator
 
-    public PigeonGenerator(int lenght) {
-        pigeonList = generateTab(lenght);
+    public PigeonGenerator(int length) {
+        pigeonList = generateTab(length);
     } //PigeonGenerator
 
     public List<Double> getPigeonList() {
         return pigeonList;
     } //getPigeonList
 
-    private List<Double> generateTab (int lenght) {
-        List<Double> array = new ArrayList<>(lenght);
-        for (int i = 0; i != (lenght - 1); ++i) {
+    private List<Double> generateTab (int length) {
+        List<Double> array = new ArrayList<>(length);
+        for (int i = 0; i != (length - 1); ++i) {
             array.add(i, pigeonFormula(i));
         }
         return array;
@@ -37,7 +37,7 @@ public class PigeonGenerator {
      * this is actually the simplified function
      */
     private Double pigeonFormula(int x) {
-        return Math.sqrt(Math.pow(Math.cos((double) x) * randomWithRange(0.6 , 1.4) + randomWithRange(1.1 , 1.4), 2));
+        return Math.sqrt(Math.pow(Math.cos((double) x) * randomWithRange(0.6 , 1.5) + randomWithRange(1.1 , 1.4), 2));
     } //pigeonFormula
 
     Double randomWithRange(Double min, Double max)
@@ -56,6 +56,19 @@ public class PigeonGenerator {
         }
     } //displayPigeonArray
 
+
+    /**
+     * Parse a String to the correspondant List<Double> of the PIGEON key
+     */
+    public static List<Double> ParsePigeonKey(String str) {
+        List<Double> pigeon = new ArrayList<>();
+        String newline = System.getProperty("line.separator");
+
+        for (String nextStrToDecrypt: str.split(newline)) {
+            pigeon.add(Double.parseDouble(nextStrToDecrypt));
+        }
+        return pigeon;
+    }
 
 
     /**
