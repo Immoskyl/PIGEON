@@ -1,4 +1,4 @@
-package controler;
+package controller;
 
 import display.ADisplayLanguage;
 import display.DisplayFactory;
@@ -73,19 +73,19 @@ public class Controller {
         int intInput;
         Scanner scanner = new Scanner(System.in);
 
-        ADisplayLanguage.ChooseLanguage();
+        display.chooseFeature();
 
         intInput = scanner.nextInt();
 
         switch (intInput) {
             case 1:
-                feature = new Read();
+                feature = ControllerFactory.CreateRead();
                 break;
             case 2:
-                feature = new Write();
+                feature = ControllerFactory.CreateWrite();
                 break;
             case 3:
-                feature = new Demo();
+                feature = ControllerFactory.CreateDemo();
                 break;
             default:
                 feature = null;
@@ -94,7 +94,7 @@ public class Controller {
     } //chooseFeatureStrategy()
 
     public static void main(String[] args) {
-        Controller controller = new Controller();
+        Controller controller = ControllerFactory.CreateController();
 
         controller.chooseLanguage();
         controller.chooseFeatureStrategy();
@@ -102,6 +102,10 @@ public class Controller {
         while (controller.getFeatureStrategy() != null) {
             controller.executeFeature();
             controller.chooseFeatureStrategy();
+
+            controller.display().blank();
         }
+
+        controller.display().greetings();
     } //main()
 }

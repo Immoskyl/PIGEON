@@ -21,7 +21,7 @@ public class FrenchText extends ADisplayLanguage {
         display("Ajoutez un message ou laissez vide pour passer:");
     }
 
-    public void whoIsTransmiter() {
+    public void whoIsTransmitter() {
         display("Qui est l'émetteur (ID)?");
     }
 
@@ -54,5 +54,18 @@ public class FrenchText extends ADisplayLanguage {
     public void clientSaidMessage(String clientName, String message) {
        display(clientName + " a dit : " + message);
        display("");
+    }
+
+    public void chooseFeature() {
+        display("Que voulez-vous faire?");
+        display("1: Déchiffrement de fichier");
+        display("2: Chiffrement de fichier");
+        display("3: Lancer la démo");
+        display("Tout autre nombre pour arrêter");
+    }
+
+    public void greetings() {
+        display("Merci d'avoir testé le P.I.G.E.O.N.!");
+        display("Donnez vos impressions et commentaires à l'utilisateur Immoskyl sur GitHub!");
     }
 }

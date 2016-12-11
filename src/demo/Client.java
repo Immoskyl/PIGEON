@@ -1,6 +1,6 @@
-package frontend;
+package demo;
 
-import controler.Controler;
+import controller.Demo;
 import cryptography.PigeonDecryption;
 import cryptography.PigeonEncryption;
 
@@ -104,7 +104,7 @@ public class Client {
                 break;
 
             case 1:
-                PigeonEncryption pigeon = new PigeonEncryption(Controler.getPigeonList());
+                PigeonEncryption pigeon = new PigeonEncryption(Demo.getInstance().getPigeonList());
                 pigeon.encryptPacket(packet);
                 break;
             default:
@@ -119,7 +119,7 @@ public class Client {
                 break;
 
             case 1:
-                PigeonDecryption pigeon = new PigeonDecryption(Controler.getPigeonList());
+                PigeonDecryption pigeon = new PigeonDecryption(Demo.getInstance().getPigeonList());
                 pigeon.decryptPacket(packet);
                 break;
             default:

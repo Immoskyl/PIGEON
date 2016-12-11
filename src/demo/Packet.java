@@ -1,4 +1,4 @@
-package frontend;
+package demo;
 
 /**
  * Contains all the informations useful for communication purposes

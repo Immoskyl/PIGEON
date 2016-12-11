@@ -1,6 +1,6 @@
 package cryptography;
 
-import frontend.Packet;
+import demo.Packet;
 import java.util.List;
 
 /**

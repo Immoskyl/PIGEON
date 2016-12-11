@@ -22,38 +22,51 @@ public class EnglishText extends ADisplayLanguage {
         display("Add a message or leave blank to move on:");
     }
 
-    public void whoIsTransmiter() {
+    public void whoIsTransmitter() {
         display("Who is the tansmitter (ID)?");
     }
 
     public void whoIsReceiver() {
-        display("Qui est le récepteur (ID)?");
+        display("Who is the receiver (ID)?");
     }
 
     public void  writeMessageText() {
-        display("Ecrivez le texte que contriendra le message en une ligne");
+        display("Write the text of the message in one line");
     }
 
     public void  chooseEncryptionType() {
-        display("Choisissez le type de chiffrement utilisé pour ce message");
-        display("0: Pas de chiffrement");
-        display("1: Chiffrement P.I.G.E.O.N.");
+        display("Choose what encryption type will be used on the message");
+        display("0: No encryption");
+        display("1: P.I.G.E.O.N. encryption");
     }
 
     public void addNewMessage() {
-        display("Ajoutez un autre message en donnant le nouvel émetteur ou laissez vide pour passer");
+        display("Add new message by giving a new transmitter or leave blank to move on");
     }
 
     public void clientReceivedOneMessage(String clientName) {
-        display(clientName + " a recu 1 message:");
+        display(clientName + " received 1 message:");
     }
 
     public void clientReceivedSeveralMessages(String clientName, int numberOfMessages) {
-        display(clientName + " a recu " + numberOfMessages + " messages:");
+        display(clientName + " received " + numberOfMessages + " messages:");
     }
 
     public void clientSaidMessage(String clientName, String message) {
-        display(clientName + " a dit : " + message);
+        display(clientName + " said: " + message);
         display("");
+    }
+
+    public void chooseFeature() {
+        display("What do you want to do?");
+        display("1: File decryption");
+        display("2: File encryption");
+        display("3: Launch demo");
+        display("Any other number to stop");
+    }
+
+    public void greetings() {
+        display("Thanks for testing P.I.G.E.O.N.!");
+        display("Send any feedback or comment to user Immoskyl on GitHub");
     }
 }

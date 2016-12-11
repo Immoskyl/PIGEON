@@ -1,9 +1,9 @@
-package controler;
+package controller;
 
 /**
  * Created by immoskyl on 11/12/16.
  */
-public class ControllerFacotry {
+public class ControllerFactory {
 
     public static Controller CreateController() {
         return Controller.getInstance();

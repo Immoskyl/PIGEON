@@ -1,4 +1,4 @@
-package controler;
+package controller;
 
 import cryptography.PigeonFactory;
 import cryptography.PigeonGenerator;

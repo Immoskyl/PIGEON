@@ -1,6 +1,6 @@
 package cryptography;
 
-import frontend.Packet;
+import demo.Packet;
 
 /**
  * Created by immoskyl on 06/09/16.

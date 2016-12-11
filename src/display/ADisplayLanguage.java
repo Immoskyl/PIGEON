@@ -21,6 +21,12 @@ public abstract class ADisplayLanguage {
     } //ChooseLanguage()
 
 
+    public void blank() {
+        for (int i = 0; i != 10; ++i) {
+            display("");
+        }
+    }
+
     //-------------------------------------------------------------
     //-------------------------------------------------------------
 
@@ -28,7 +34,7 @@ public abstract class ADisplayLanguage {
     public abstract void addClient();
     public abstract void addAnotherClient();
     public abstract void addMessage();
-    public abstract void whoIsTransmiter();
+    public abstract void whoIsTransmitter();
     public abstract void whoIsReceiver();
     public abstract void writeMessageText();
     public abstract void chooseEncryptionType();
@@ -36,4 +42,6 @@ public abstract class ADisplayLanguage {
     public abstract void clientReceivedSeveralMessages(String clientName, int numberOfMessages);
     public abstract void clientReceivedOneMessage(String clientName);
     public abstract void clientSaidMessage(String clientName, String message);
+    public abstract void chooseFeature();
+    public abstract void greetings();
 }
