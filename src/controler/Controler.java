@@ -80,13 +80,16 @@ public class Controler {
         String strInput;
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Ajoutez un Client ou laissez vide pour passer");
+        display.addClient();
+
         while (true) {
             strInput = scanner.nextLine();
             if (strInput.equals("")) {break;}
             else {
                 clientList.add(new Client(strInput));
-                System.out.println("Ajoutez un autre Client ou laissez vide pour passer");
+
+                display.addAnotherClient();
+
             }
         }
     } //createClients
@@ -97,12 +100,13 @@ public class Controler {
         Scanner scanner = new Scanner(System.in);
 
         if (!clientList.isEmpty()) {
-            System.out.println("Ajoutez un message ou laissez vide pour passer:");
-            System.out.println("Qui est l'émetteur (ID)?");
+
+            display.addMessage();
+            display.whoIsTransmiter();
 
             while (true) {
                 for (Client client : clientList) {
-                    System.out.println(client.getiD() + ": " + client.getName());
+                    display.display(client.getiD() + ": " + client.getName());
                 }
 
                 strInput = scanner.nextLine();
@@ -112,26 +116,26 @@ public class Controler {
                     Packet bufferPacket = new Packet();
                     bufferPacket.setiDTransmitter(Integer.parseInt(strInput));
 
-                    System.out.println("Qui est le récepteur (ID)?");
+                    display.whoIsReceiver();
+
                     intInput = scanner.nextInt();
                     scanner.nextLine();
                     bufferPacket.setiDReceiver(intInput);
 
-                    System.out.println("Ecrivez le texte que contriendra le message en une ligne");
+                    display.writeMessageText();
+
                     strInput = scanner.nextLine();
                     bufferPacket.setText(strInput);
 
-                    System.out.println("Choisissez le type de chiffrement utilisé pour ce message");
-                    System.out.println("0: Pas de chiffrement");
-                    System.out.println("1: Chiffrement P.I.G.E.O.N.");
+                    display.chooseEncryptionType();
+
                     intInput = scanner.nextInt();
                     scanner.nextLine();
                     bufferPacket.setEncryptionType(intInput);
 
                     clientList.get(getClientPlacement(bufferPacket.getiDTransmitter())).addPacketToSend(bufferPacket);
 
-                    System.out.println("Ajoutez un autre message en donnant le nouvel émetteur ou laissez vide pour passer");
-
+                    display.addNewMessage();
                 }
             }
         }
@@ -160,12 +164,14 @@ public class Controler {
                 case 0: break;
 
                 case 1:
-                    System.out.println(client.getName() + " a recu 1 message:");
+                    display.clientReceivedOneMessage(client.getName());
+
                     readMessage(client);
                     break;
 
                 default:
-                    System.out.println(client.getName() + " a recu " + client.getPacketReceivedSize() + " messages");
+                    display.clientReceivedSeveralMessages(client.getName(), client.getPacketReceivedSize());
+
                     while (client.hasReceivedPacket()) {
                         readMessage(client);
                     }

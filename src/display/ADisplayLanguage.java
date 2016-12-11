@@ -19,4 +19,22 @@ public abstract class ADisplayLanguage {
         System.out.println("1: English");
         System.out.println("2: French");
     } //ChooseLanguage()
+
+
+    //-------------------------------------------------------------
+    //-------------------------------------------------------------
+
+
+    public abstract void addClient();
+    public abstract void addAnotherClient();
+    public abstract void addMessage();
+    public abstract void whoIsTransmiter();
+    public abstract void whoIsReceiver();
+    public abstract void writeMessageText();
+    public abstract void chooseEncryptionType();
+    public abstract void addNewMessage();
+    public abstract void clientReceivedSeveralMessages(String clientName, int numberOfMessages);
+public abstract void clientReceivedOneMessage(String clientName);
+
+    }
 }
