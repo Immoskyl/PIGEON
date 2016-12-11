@@ -2,10 +2,12 @@ package controller;
 
 import cryptography.PigeonDecryption;
 import cryptography.PigeonFactory;
+import cryptography.PigeonGenerator;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 /**
@@ -15,71 +17,45 @@ public class Read implements FeatureStrategy {
 
     private PigeonDecryption decryption;
 
-    private String getFile() {
+    private String getFileAddress() {
         Scanner scanner = new Scanner(System.in);
 
         Controller.getInstance().display().askForFile();
 
         return scanner.nextLine();
-    } //getFile()
+    } //getFileAddress()
 
     private void askPigeon() {
 
     }
 
     private void decryptFile() {
-        decryption = PigeonFactory.CreatePigeonDecryption(askFile());
-
-
-    }
-    private void askFile() {
-        BufferedReader br = null;
-        FileReader fr = null;
-
         try {
-
-            fr = new FileReader(getFile());
-
-            String sCurrentLine;
-
-            br = new BufferedReader(new FileReader(getFile()));
-
-            while ((sCurrentLine = br.readLine()) != null) {
-                System.out.println(sCurrentLine);
-            }
-
-        } catch (IOException e) {
-
+            decryption = PigeonFactory.CreatePigeonDecryption(PigeonGenerator.ParsePigeonKey(askFile()));
+        }
+        catch (IOException e) {
             e.printStackTrace();
-
-        } finally {
-
-            try {
-
-                if (br != null)
-                    br.close();
-
-                if (fr != null)
-                    fr.close();
-
-            } catch (IOException ex) {
-
-                ex.printStackTrace();
-
-            }
-
         }
     }
 
+    private String askFile() throws IOException{
+        return readFile(getFileAddress(), Charset.defaultCharset());
+    }
+
+    private String readFile(String path, Charset encoding) throws IOException {
+        byte[] encoded = Files.readAllBytes(Paths.get(path));
+        return new String(encoded, encoding);
+    }
+
     public void execute() {
-        int intInput;
+        int intInput = 2;
         Scanner scanner = new Scanner(System.in);
 
 
         askPigeon();
         decryptFile();
 
-        while (intInput != 0 && intInput != 1)) {
+        while (intInput != 0 && intInput != 1) {
             intInput = scanner.nextInt();
             switch (intInput) {
                 case 0 :
