@@ -131,4 +131,11 @@ public class FrenchText extends ADisplayLanguage {
         display("1: Chiffrer un autre fichier avec la même clé");
         display("Tout autre nombre pour arrêter");
     }
+
+    public void wantToWrite() {
+        display("");
+        display("Voulez-vous sauvegarder cette traduction?");
+        display("1: Oui");
+        display("Tout autre nombre si vous ne voulez pas");
+    }
 }

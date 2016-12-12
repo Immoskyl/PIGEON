@@ -102,7 +102,6 @@ public class Write implements FeatureStrategy {
 
         setKey();
         encryptFile();
-
         do {
 
             Controller.getInstance().display().writeMenu();
@@ -111,7 +110,6 @@ public class Write implements FeatureStrategy {
             switch (intInput) {
                 case 0 :
                     setKey();
-                    break;
                 case 1 :
                     encryptFile();
                     break;

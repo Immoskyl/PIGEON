@@ -132,4 +132,11 @@ public class EnglishText extends ADisplayLanguage {
         display("1: Encrypt another file with the same key");
         display("Any other number to stop");
     }
+
+    public void wantToWrite() {
+        display("");
+        display("Do you want to save this translation?");
+        display("1: Yes");
+        display("Any other number if you don't want");
+    }
 }

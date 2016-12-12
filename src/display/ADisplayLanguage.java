@@ -55,6 +55,7 @@ public abstract class ADisplayLanguage {
     public abstract void fileNotFound();
     public abstract void fileEmpty();
     public abstract void decryptedText();
+    public abstract void wantToWrite();
 
     //in Write
 

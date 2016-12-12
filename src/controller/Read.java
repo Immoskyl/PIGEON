@@ -4,6 +4,7 @@ import cryptography.PigeonDecryption;
 import cryptography.PigeonFactory;
 import cryptography.PigeonGenerator;
 import io.FileReadMacros;
+import io.FileWriteMacros;
 
 import java.util.Scanner;
 
@@ -22,14 +23,27 @@ public class Read implements FeatureStrategy {
     }
 
     private void decryptFile() {
-        String decryptedText;
+        String[] addressAndText;
+        int intInput;
+        Scanner scanner = new Scanner(System.in);
 
         Controller.getInstance().display().askForFileToDecrypt();
 
-        decryptedText = decryption.decryptString(FileReadMacros.getFileAddressAndText()[1]);
+        addressAndText = FileReadMacros.getFileAddressAndText();
+        addressAndText[1] = decryption.decryptString(addressAndText[0]);
 
         Controller.getInstance().display().decryptedText();
-        Controller.getInstance().display().display(decryptedText);
+        Controller.getInstance().display().display(addressAndText[1]);
+        Controller.getInstance().display().wantToWrite();
+
+        intInput = scanner.nextInt();
+        switch (intInput) {
+            case 1 :
+                FileWriteMacros.writeToFile(addressAndText[0], addressAndText[1]);
+                break;
+            default:
+                break;
+        }
     }
 
     public void execute() {
@@ -47,7 +61,6 @@ public class Read implements FeatureStrategy {
             switch (intInput) {
                 case 0 :
                     askPigeon();
-                    break;
                 case 1 :
                     decryptFile();
                     break;
