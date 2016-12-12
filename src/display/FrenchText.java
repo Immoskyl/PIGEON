@@ -103,4 +103,31 @@ public class FrenchText extends ADisplayLanguage {
     public void encryptionSuccessful() {
         display("Chiffrement réussi!");
     }
+
+    public void cantWriteFile(String address) {
+        display( "Impossible d'écrire sur le fichier " + address + " !!!");
+    }
+
+    public void howToGetKey() {
+        display("Quelle clé de chiffrement utiliser?");
+        display("1: Importer une clé existante");
+        display("2: Créer une nouvelle clé");
+        display("Tout autre nombre pour générer une clé par defaut si aucune n'a encore été enregistrée");
+    }
+
+    public void writePigeonName() {
+        display("Ecrivez unnom pour le fichier qui contiendra la clé");
+    }
+
+    public void keyLength() {
+        display("Une clé de quelle longueur voulez-vous générer?");
+        display("Laissez vide pour une taille par defaut (30)");
+    }
+
+    public void writeMenu() {
+        display("Voulez-vous changer la clé P.I.G.E.O.N.?");
+        display("0: Changer la clé de chiffrement");
+        display("1: Chiffrer un autre fichier avec la même clé");
+        display("Tout autre nombre pour arrêter");
+    }
 }

@@ -60,5 +60,10 @@ public abstract class ADisplayLanguage {
 
     public abstract void askForFileToEncrypt();
     public abstract void encryptionSuccessful();
+    public abstract void cantWriteFile(String address);
+    public abstract void howToGetKey();
+    public abstract void writePigeonName();
+    public abstract void keyLength();
+    public abstract void writeMenu();
 
 }

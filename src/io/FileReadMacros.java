@@ -31,7 +31,7 @@ public class FileReadMacros {
         return values;
     }
 
-    private static String getFileAddress() {
+    public static String getFileAddress() {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     } //getFileAddress()

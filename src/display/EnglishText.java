@@ -104,4 +104,31 @@ public class EnglishText extends ADisplayLanguage {
     public void encryptionSuccessful() {
         display("Encryption Successful!");
     }
+
+    public void cantWriteFile(String address) {
+        display("Cannot print on the file " + address + " !!!");
+    }
+
+    public void howToGetKey() {
+        display("How to get encryption key?");
+        display("1: Import already existing key");
+        display("2: Generate a new key");
+        display("Any other number to generate a default key, if none has been recorded yet");
+    }
+
+    public void writePigeonName() {
+        display("Write a name for creating the file wich will contain the key");
+    }
+
+    public void keyLength() {
+        display("What size do you want the key to be?");
+        display("Leave blank for default size (30)");
+    }
+
+    public void writeMenu() {
+        display("Do you want to change P.I.G.E.O.N. key?");
+        display("0: Change encryption key");
+        display("1: Encrypt another file with the same key");
+        display("Any other number to stop");
+    }
 }
