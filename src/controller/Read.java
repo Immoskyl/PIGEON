@@ -22,12 +22,18 @@ public class Read implements FeatureStrategy {
         this.display = display;
     }
 
+    /**
+     * asks the user for a PIGEON key file and sets the key
+     */
     private void askPigeon() {
         display.askForPigeon();
 
         decryption = PigeonFactory.CreatePigeonDecryption(PigeonGenerator.ParsePigeonKey(FileReadMacros.getFileAddressAndText()[1]));
-    }
+    } //askPigeon()
 
+    /**
+     * asks the user for a file to decrypt, tries to decrypt it, and ask if the user wants it to be saved in the file
+     */
     private void decryptFile() {
         String[] addressAndText;
         int intInput;
@@ -50,8 +56,12 @@ public class Read implements FeatureStrategy {
             default:
                 break;
         }
-    }
+    } //decryptFile()
 
+    /**
+     * IFeatureStrategy implementation
+     * asks for the key and decrypt one file then ask for different key or continue decrypting more files in a loop
+     */
     public void execute() {
         int intInput;
         Scanner scanner = new Scanner(System.in);
@@ -75,5 +85,5 @@ public class Read implements FeatureStrategy {
                     break;
             }
         } while (loop);
-    }
+    } //execute()
 }

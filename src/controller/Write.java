@@ -21,6 +21,9 @@ public class Write implements FeatureStrategy {
         this.display = display;
     }
 
+    /**
+     * sets the pigeon key for the client by whether importing it from a file or generating it
+     */
     private void setKey() {
         int intInput;
         Scanner scanner = new Scanner(System.in);
@@ -36,7 +39,7 @@ public class Write implements FeatureStrategy {
                 writePigeon(generatePigeon());
                 break;
             default:
-                //crée une clé par defaut si aucune clé n'a déjà été créée
+                //creates a default key if none has been declared yet
                 if (encryption == null) {
                     PigeonGenerator pigeon = PigeonFactory.CreatePigeonGenerator();
                     encryption = PigeonFactory.CreatePigeonEncryption(pigeon.getPigeonList());
@@ -44,11 +47,13 @@ public class Write implements FeatureStrategy {
                 }
                 break;
         }
-    }
+    } //setKey()
 
+    /**
+     * Writes the PIGEON key on a file specified by the user
+     */
     private void writePigeon(PigeonGenerator pigeon) {
         String strInput;
-        String strOutput = "";
         String newline = System.getProperty("line.separator");
         Scanner scanner = new Scanner(System.in);
         StringBuilder builder = new StringBuilder();
@@ -60,17 +65,22 @@ public class Write implements FeatureStrategy {
         for (Double row : pigeon.getPigeonList()) {
             builder.append(row.toString());
             builder.append(newline);
-            //strOutput += row.toString() + newline;
         }
         FileWriteMacros.writeToFile(strInput, builder.toString());
-    }
+    } //writePigeon()
 
+    /**
+     * asks the file having the pigeon key to the user, and loads the key
+     */
     private void importPigeon() {
         display.askForPigeon();
 
         encryption = PigeonFactory.CreatePigeonEncryption(PigeonGenerator.ParsePigeonKey(FileReadMacros.getFileAddressAndText()[1]));
-    }
+    } //importKey()
 
+    /**
+     * creates a new random key where the user has the choice of its length
+     */
     private PigeonGenerator generatePigeon() {
         String strInput;
         Scanner scanner = new Scanner(System.in);
@@ -87,8 +97,12 @@ public class Write implements FeatureStrategy {
         }
         encryption = PigeonFactory.CreatePigeonEncryption(pigeon.getPigeonList());
         return pigeon;
-    }
+    } //generatePigeon()
 
+    /**
+     * asks the user for the name of a file, and tries to decrypt the message it contains
+     * if it is successful, asks the user whether to override the file with the translation (aka. the decryption)
+     */
     private void encryptFile() {
         display.askForFileToEncrypt();
 
@@ -98,8 +112,13 @@ public class Write implements FeatureStrategy {
 
         display.encryptionSuccessful();
         display.display(values[1]);
-    }
+    } //encryptFile()
 
+    /**
+     * IFeatureStrategy implementation for execute
+     * sets the key and encrypts one file,
+     * then ask if the user wants to change key or continue encrypting with the previous one in a loop
+     */
     public void execute() {
         int intInput;
         Scanner scanner = new Scanner(System.in);
@@ -123,5 +142,5 @@ public class Write implements FeatureStrategy {
                     break;
             }
         } while (loop);
-    }
+    } //execute()
 }

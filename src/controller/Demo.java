@@ -21,14 +21,21 @@ public class Demo implements FeatureStrategy {
     private List<Client> clientList = new ArrayList<>();
     private List<Double> pigeonList = new ArrayList<>();
 
+    /**
+     * IFeatureStrategy implementation of execute
+     * pretty straight forward, just read the function for getting the behavior of the demo
+     */
     public void execute() {
         createPigeon();
         createClients();
         createMessages();
         sendMessages();
         readMessages();
-    }
+    } //execute(()
 
+    /**
+     * singleton (so the clients can access the client list and the pigeon key without having to have the demo object as an attribute
+     */
     private Demo(){}
 
     public static Demo getInstance () {
@@ -36,21 +43,21 @@ public class Demo implements FeatureStrategy {
            instance = new Demo();
         }
         return instance;
-    }
+    } //getInstance()
 
     public void setDisplay(ADisplayLanguage display) {
         this.display = display;
-    }
+    } //setDisplay()
 
-    private String getClientName (int iD) {
+    private String getClientName (int clientID) {
         for (Client client : clientList) {
-            if (client.getiD() == iD) {return client.getName();}
+            if (client.getiD() == clientID) {return client.getName();}
         }
         return "";
     } //getClientName()
 
     /**
-     * return client position in Controler.clientList when client is reffered by id
+     * return client position in Demo.clientList when client is reffered by id
      */
     private int getClientPlacement (int iD) {
         for (int i = 0; i != clientList.size(); ++i) {
@@ -65,7 +72,7 @@ public class Demo implements FeatureStrategy {
 
 
     /**
-     * populates the Controler.pigeonList with a PigeonGenerator instance
+     * populates the Demo.pigeonList with a PigeonGenerator instance
      */
     private void createPigeon() {
         PigeonGenerator pigeon = PigeonFactory.CreatePigeonGenerator();
@@ -90,6 +97,9 @@ public class Demo implements FeatureStrategy {
         }
     } //createClients()
 
+    /**
+     * allow the user to create messages encapsulated in packets chosen clients will send
+     */
     private void createMessages() {
         String strInput;
         int intInput;
@@ -137,6 +147,10 @@ public class Demo implements FeatureStrategy {
         }
     } //createMessages()
 
+    /**
+     * sends the messages of every client that has packet to send
+     * in order of their creation (lower packet ID first and highest ID last)
+     */
     private void sendMessages() {
         Packet packetBuffer;
 

@@ -26,13 +26,16 @@ public class PigeonGenerator {
         return pigeonList;
     } //getPigeonList
 
+    /**
+     * generates the PIGEON key
+     */
     private List<Double> generateTab (int length) {
         List<Double> array = new ArrayList<>(length);
         for (int i = 0; i != length; ++i) {
             array.add(i, pigeonFormula(i));
         }
         return array;
-    } //generateTab
+    } //generateTab()
 
     /**
      * this is actually the simplified function

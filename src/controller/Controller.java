@@ -62,6 +62,9 @@ public class Controller {
         }
     } //chooseLanguage()
 
+    /**
+     * asks the user to choose between (1) decrypt files, (2) encrypt files, (3) run the demo
+     */
     private void chooseFeatureStrategy() {
         int intInput;
         Scanner scanner = new Scanner(System.in);
@@ -89,6 +92,9 @@ public class Controller {
         }
     } //chooseFeatureStrategy()
 
+    /**
+     * pretty straight forward main high level behavior
+     */
     public static void main(String[] args) {
         Controller controller = ControllerFactory.CreateController();
 
