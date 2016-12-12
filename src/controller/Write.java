@@ -51,15 +51,18 @@ public class Write implements FeatureStrategy {
         String strOutput = "";
         String newline = System.getProperty("line.separator");
         Scanner scanner = new Scanner(System.in);
+        StringBuilder builder = new StringBuilder();
 
         display.writePigeonName();
 
         strInput = scanner.nextLine();
 
         for (Double row : pigeon.getPigeonList()) {
-            strOutput += row.toString() + newline;
+            builder.append(row.toString());
+            builder.append(newline);
+            //strOutput += row.toString() + newline;
         }
-        FileWriteMacros.writeToFile(strInput, strOutput);
+        FileWriteMacros.writeToFile(strInput, builder.toString());
     }
 
     private void importPigeon() {

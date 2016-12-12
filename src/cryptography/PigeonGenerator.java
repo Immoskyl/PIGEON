@@ -67,8 +67,6 @@ public class PigeonGenerator {
 
         try {
             for (String nextStrToDecrypt : str.split(newline)) {
-                //debug
-                System.out.println(nextStrToDecrypt);
                 pigeon.add(Double.parseDouble(nextStrToDecrypt));
             }
         } catch (NumberFormatException e) {
