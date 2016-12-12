@@ -16,8 +16,7 @@ public class Write implements FeatureStrategy {
     private PigeonEncryption encryption;
 
     /**
-     * TODO: creer toutes les strigns de display
-     *      + refactor TOUS les displays du programme
+     *  TODO refactor TOUS les displays du programme
      */
 
     private void setKey() {

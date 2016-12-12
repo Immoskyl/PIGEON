@@ -103,6 +103,7 @@ public class EnglishText extends ADisplayLanguage {
 
     public void encryptionSuccessful() {
         display("Encryption Successful!");
+        display("");
     }
 
     public void cantWriteFile(String address) {

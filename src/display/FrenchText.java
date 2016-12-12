@@ -102,6 +102,7 @@ public class FrenchText extends ADisplayLanguage {
 
     public void encryptionSuccessful() {
         display("Chiffrement réussi!");
+        display("");
     }
 
     public void cantWriteFile(String address) {
@@ -116,7 +117,7 @@ public class FrenchText extends ADisplayLanguage {
     }
 
     public void writePigeonName() {
-        display("Ecrivez unnom pour le fichier qui contiendra la clé");
+        display("Ecrivez un nom pour le fichier qui contiendra la clé");
     }
 
     public void keyLength() {

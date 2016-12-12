@@ -17,8 +17,8 @@ public class FileReadMacros {
     public static String[] getFileAddressAndText() {
         String[] values = new String[2];
         boolean success = false;
-        values[0] = getFileAddress();
         while(!success) {
+            values[0] = getFileAddress();
             try {
                 values[1] = ReadFile(values[0], StandardCharsets.UTF_8);
                 success = true;
