@@ -3,6 +3,7 @@ package controller;
 import cryptography.PigeonDecryption;
 import cryptography.PigeonFactory;
 import cryptography.PigeonGenerator;
+import display.ADisplayLanguage;
 import io.FileReadMacros;
 import io.FileWriteMacros;
 
@@ -15,9 +16,14 @@ import java.util.Scanner;
 public class Read implements FeatureStrategy {
 
     private PigeonDecryption decryption;
+    private ADisplayLanguage display;
+
+    public void setDisplay(ADisplayLanguage display) {
+        this.display = display;
+    }
 
     private void askPigeon() {
-        Controller.getInstance().display().askForPigeon();
+        display.askForPigeon();
 
         decryption = PigeonFactory.CreatePigeonDecryption(PigeonGenerator.ParsePigeonKey(FileReadMacros.getFileAddressAndText()[1]));
     }
@@ -27,14 +33,14 @@ public class Read implements FeatureStrategy {
         int intInput;
         Scanner scanner = new Scanner(System.in);
 
-        Controller.getInstance().display().askForFileToDecrypt();
+        display.askForFileToDecrypt();
 
         addressAndText = FileReadMacros.getFileAddressAndText();
         addressAndText[1] = decryption.decryptString(addressAndText[0]);
 
-        Controller.getInstance().display().decryptedText();
-        Controller.getInstance().display().display(addressAndText[1]);
-        Controller.getInstance().display().wantToWrite();
+        display.decryptedText();
+        display.display(addressAndText[1]);
+        display.wantToWrite();
 
         intInput = scanner.nextInt();
         switch (intInput) {
@@ -55,7 +61,7 @@ public class Read implements FeatureStrategy {
         decryptFile();
 
         do {
-            Controller.getInstance().display().changePigeon();
+            display.changePigeon();
 
             intInput = scanner.nextInt();
             switch (intInput) {

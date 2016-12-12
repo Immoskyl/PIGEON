@@ -23,9 +23,9 @@ public class FileReadMacros {
                 values[1] = ReadFile(values[0], StandardCharsets.UTF_8);
                 success = true;
             } catch (IOException e) {
-                Controller.getInstance().display().fileNotFound();
+                Controller.getInstance().getDisplay().fileNotFound();
             } catch (NumberFormatException e) {
-                Controller.getInstance().display().fileEmpty();
+                Controller.getInstance().getDisplay().fileEmpty();
             }
         }
         return values;

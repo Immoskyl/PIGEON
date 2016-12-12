@@ -24,11 +24,7 @@ public class Controller {
         return instance;
     } //getInstance()
 
-    /**
-     * getDisplay() method, but I found this name more ergonomic and logic to use in the current context
-     * @return display
-     */
-    public ADisplayLanguage display() {
+    public ADisplayLanguage getDisplay() {
         return display;
     }
 
@@ -37,13 +33,13 @@ public class Controller {
     } //getFeatureStrategy()
 
 
-    public void executeFeature() {
+    private void executeFeature() {
         feature.execute();
     } //executeFeature()
 
     /**
      * allow the user to choose their favourite language
-     * (and easy possibility to extend on a display type choice as well)
+     * (and easy possibility to extend on a getDisplay type choice as well)
      */
     private void chooseLanguage() {
         int intInput;
@@ -88,6 +84,12 @@ public class Controller {
                 feature = null;
                 break;
         }
+        try {
+            feature.setDisplay(display);
+        } catch (NullPointerException e) {
+            chooseLanguage();
+            chooseFeatureStrategy();
+        }
     } //chooseFeatureStrategy()
 
     public static void main(String[] args) {
@@ -100,9 +102,9 @@ public class Controller {
             controller.executeFeature();
             controller.chooseFeatureStrategy();
 
-            controller.display().blank();
+            controller.getDisplay().blank();
         }
 
-        controller.display().greetings();
+        controller.getDisplay().greetings();
     } //main()
 }

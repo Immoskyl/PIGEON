@@ -12,7 +12,7 @@ public abstract class ADisplayLanguage {
 
     public void display (String s) {
         displayType.display(s);
-    } //display()
+    } //getDisplay()
 
 
 
@@ -58,7 +58,6 @@ public abstract class ADisplayLanguage {
     public abstract void wantToWrite();
 
     //in Write
-
     public abstract void askForFileToEncrypt();
     public abstract void encryptionSuccessful();
     public abstract void cantWriteFile(String address);
@@ -66,5 +65,4 @@ public abstract class ADisplayLanguage {
     public abstract void writePigeonName();
     public abstract void keyLength();
     public abstract void writeMenu();
-
 }

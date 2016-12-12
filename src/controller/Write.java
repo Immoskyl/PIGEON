@@ -4,6 +4,7 @@ package controller;
 import cryptography.PigeonEncryption;
 import cryptography.PigeonFactory;
 import cryptography.PigeonGenerator;
+import display.ADisplayLanguage;
 import io.FileReadMacros;
 import io.FileWriteMacros;
 
@@ -14,16 +15,17 @@ import java.util.Scanner;
  */
 public class Write implements FeatureStrategy {
     private PigeonEncryption encryption;
+    private ADisplayLanguage display;
 
-    /**
-     *  TODO refactor TOUS les displays du programme
-     */
+    public void setDisplay(ADisplayLanguage display) {
+        this.display = display;
+    }
 
     private void setKey() {
         int intInput;
         Scanner scanner = new Scanner(System.in);
 
-        Controller.getInstance().display().howToGetKey();
+        display.howToGetKey();
 
         intInput = scanner.nextInt();
         switch (intInput) {
@@ -50,7 +52,7 @@ public class Write implements FeatureStrategy {
         String newline = System.getProperty("line.separator");
         Scanner scanner = new Scanner(System.in);
 
-        Controller.getInstance().display().writePigeonName();
+        display.writePigeonName();
 
         strInput = scanner.nextLine();
 
@@ -61,7 +63,7 @@ public class Write implements FeatureStrategy {
     }
 
     private void importPigeon() {
-        Controller.getInstance().display().askForPigeon();
+        display.askForPigeon();
 
         encryption = PigeonFactory.CreatePigeonEncryption(PigeonGenerator.ParsePigeonKey(FileReadMacros.getFileAddressAndText()[1]));
     }
@@ -71,7 +73,7 @@ public class Write implements FeatureStrategy {
         Scanner scanner = new Scanner(System.in);
         PigeonGenerator pigeon;
 
-        Controller.getInstance().display().keyLength();
+        display.keyLength();
 
         strInput = scanner.nextLine();
         if (strInput.isEmpty()) {
@@ -85,14 +87,14 @@ public class Write implements FeatureStrategy {
     }
 
     private void encryptFile() {
-        Controller.getInstance().display().askForFileToEncrypt();
+        display.askForFileToEncrypt();
 
         String[] values = FileReadMacros.getFileAddressAndText(); //values[0] = file address & values[1] = text
         values[1] = encryption.encryptString(values[1]);
         FileWriteMacros.writeToFile(values[0], values[1]);
 
-        Controller.getInstance().display().encryptionSuccessful();
-        Controller.getInstance().display().display(values[1]);
+        display.encryptionSuccessful();
+        display.display(values[1]);
     }
 
     public void execute() {
@@ -104,7 +106,7 @@ public class Write implements FeatureStrategy {
         encryptFile();
         do {
 
-            Controller.getInstance().display().writeMenu();
+            display.writeMenu();
 
             intInput = scanner.nextInt();
             switch (intInput) {

@@ -5,6 +5,7 @@ import cryptography.PigeonGenerator;
 import demo.Client;
 import demo.DemoFactory;
 import demo.Packet;
+import display.ADisplayLanguage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.Scanner;
 public class Demo implements FeatureStrategy {
 
     private static Demo instance;
+    private ADisplayLanguage display;
     private List<Client> clientList = new ArrayList<>();
     private List<Double> pigeonList = new ArrayList<>();
 
@@ -34,6 +36,10 @@ public class Demo implements FeatureStrategy {
            instance = new Demo();
         }
         return instance;
+    }
+
+    public void setDisplay(ADisplayLanguage display) {
+        this.display = display;
     }
 
     private String getClientName (int iD) {
@@ -70,7 +76,7 @@ public class Demo implements FeatureStrategy {
         String strInput;
         Scanner scanner = new Scanner(System.in);
 
-        Controller.getInstance().display().addClient();
+        display.addClient();
 
         while (true) {
             strInput = scanner.nextLine();
@@ -78,7 +84,7 @@ public class Demo implements FeatureStrategy {
             else {
                 clientList.add(DemoFactory.CreateClient(strInput));
 
-                Controller.getInstance().display().addAnotherClient();
+                display.addAnotherClient();
 
             }
         }
@@ -91,12 +97,12 @@ public class Demo implements FeatureStrategy {
 
         if (!clientList.isEmpty()) {
 
-            Controller.getInstance().display().addMessage();
-            Controller.getInstance().display().whoIsTransmitter();
+            display.addMessage();
+            display.whoIsTransmitter();
 
             while (true) {
                 for (Client client : clientList) {
-                    Controller.getInstance().display().display(client.getiD() + ": " + client.getName());
+                    display.display(client.getiD() + ": " + client.getName());
                 }
 
                 strInput = scanner.nextLine();
@@ -106,18 +112,18 @@ public class Demo implements FeatureStrategy {
                     Packet bufferPacket = DemoFactory.CreatePacket();
                     bufferPacket.setiDTransmitter(Integer.parseInt(strInput));
 
-                    Controller.getInstance().display().whoIsReceiver();
+                    display.whoIsReceiver();
 
                     intInput = scanner.nextInt();
                     scanner.nextLine();
                     bufferPacket.setiDReceiver(intInput);
 
-                    Controller.getInstance().display().writeMessageText();
+                    display.writeMessageText();
 
                     strInput = scanner.nextLine();
                     bufferPacket.setText(strInput);
 
-                    Controller.getInstance().display().chooseEncryptionType();
+                    display.chooseEncryptionType();
 
                     intInput = scanner.nextInt();
                     scanner.nextLine();
@@ -125,7 +131,7 @@ public class Demo implements FeatureStrategy {
 
                     clientList.get(getClientPlacement(bufferPacket.getiDTransmitter())).addPacketToSend(bufferPacket);
 
-                    Controller.getInstance().display().addNewMessage();
+                    display.addNewMessage();
                 }
             }
         }
@@ -145,7 +151,7 @@ public class Demo implements FeatureStrategy {
     } //sendMessages()
 
     /**
-     * display of received packets depending on their number
+     * getDisplay of received packets depending on their number
      */
     private void readMessages() {
         for (Client client : clientList) {
@@ -154,13 +160,13 @@ public class Demo implements FeatureStrategy {
                 case 0: break;
 
                 case 1:
-                    Controller.getInstance().display().clientReceivedOneMessage(client.getName());
+                    display.clientReceivedOneMessage(client.getName());
 
                     readMessage(client);
                     break;
 
                 default:
-                    Controller.getInstance().display().clientReceivedSeveralMessages(client.getName(), client.getPacketReceivedSize());
+                    display.clientReceivedSeveralMessages(client.getName(), client.getPacketReceivedSize());
 
                     while (client.hasReceivedPacket()) {
                         readMessage(client);
@@ -172,7 +178,7 @@ public class Demo implements FeatureStrategy {
 
     /**
      *
-     * prompt display raw and decrypted message from first paquet received by a client
+     * prompt getDisplay raw and decrypted message from first paquet received by a client
      */
     private void readMessage(Client client) {
         Packet packetBuffer;
@@ -180,12 +186,12 @@ public class Demo implements FeatureStrategy {
         readEncryptedMessage(packetBuffer); //comment this line to hide encrypted messages
         client.decryptPacket(packetBuffer);
 
-        Controller.getInstance().display().clientSaidMessage(getClientName(packetBuffer.getiDTransmitter()), packetBuffer.getText());
+        display.clientSaidMessage(getClientName(packetBuffer.getiDTransmitter()), packetBuffer.getText());
 
         client.removePacketReceived(packetBuffer);
     } //readMessage()
 
     private void readEncryptedMessage(Packet packet) {
-        Controller.getInstance().display().display(packet.getText());
+        display.display(packet.getText());
     } //readEncryptedMessage()
 }

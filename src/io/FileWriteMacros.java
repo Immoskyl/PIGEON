@@ -22,7 +22,7 @@ public class FileWriteMacros {
             bw = new BufferedWriter(fw);
             bw.write(text);
         } catch (IOException e) {
-            Controller.getInstance().display().cantWriteFile(address);
+            Controller.getInstance().getDisplay().cantWriteFile(address);
         } finally {
             try {
                 if (bw != null)
@@ -30,7 +30,7 @@ public class FileWriteMacros {
                 if (fw != null)
                     fw.close();
             } catch (IOException ex) {
-                Controller.getInstance().display().cantWriteFile(address);
+                Controller.getInstance().getDisplay().cantWriteFile(address);
             }
         }
     }
@@ -44,7 +44,7 @@ public class FileWriteMacros {
             pw.close();
             fw.close();
         } catch (IOException e) {
-            Controller.getInstance().display().cantWriteFile(address);
+            Controller.getInstance().getDisplay().cantWriteFile(address);
         }
     }
 
