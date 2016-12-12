@@ -139,4 +139,8 @@ public class EnglishText extends ADisplayLanguage {
         display("1: Yes");
         display("Any other number if you don't want");
     }
+
+    public void badKey() {
+        display("The key is unreadable. Verify it is a proper P.I.G.E.O.N. key.");
+    }
 }

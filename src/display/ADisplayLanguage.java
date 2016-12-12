@@ -33,6 +33,7 @@ public abstract class ADisplayLanguage {
         System.out.println("1: English");
         System.out.println("2: French");
     } //ChooseLanguage()
+    public abstract void badKey();
 
     //in Demo
     public abstract void addClient();

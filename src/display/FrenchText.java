@@ -138,4 +138,8 @@ public class FrenchText extends ADisplayLanguage {
         display("1: Oui");
         display("Tout autre nombre si vous ne voulez pas");
     }
+
+    public void badKey() {
+        display("La clé est illisible. Vérifiez que c'est une clé P.I.G.E.O.N. valide.");
+    }
 }

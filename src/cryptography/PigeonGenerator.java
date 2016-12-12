@@ -1,5 +1,6 @@
 package cryptography;
 
+import controller.Controller;
 import demo.Packet;
 
 import java.util.ArrayList;
@@ -64,8 +65,14 @@ public class PigeonGenerator {
         List<Double> pigeon = new ArrayList<>();
         String newline = System.getProperty("line.separator");
 
-        for (String nextStrToDecrypt: str.split(newline)) {
-            pigeon.add(Double.parseDouble(nextStrToDecrypt));
+        try {
+            for (String nextStrToDecrypt : str.split(newline)) {
+                //debug
+                System.out.println(nextStrToDecrypt);
+                pigeon.add(Double.parseDouble(nextStrToDecrypt));
+            }
+        } catch (NumberFormatException e) {
+            Controller.getInstance().getDisplay().badKey();
         }
         return pigeon;
     }

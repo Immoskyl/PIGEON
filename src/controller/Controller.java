@@ -73,22 +73,19 @@ public class Controller {
         switch (intInput) {
             case 1:
                 feature = ControllerFactory.CreateRead();
+                feature.setDisplay(display);
                 break;
             case 2:
                 feature = ControllerFactory.CreateWrite();
+                feature.setDisplay(display);
                 break;
             case 3:
                 feature = ControllerFactory.CreateDemo();
+                feature.setDisplay(display);
                 break;
             default:
                 feature = null;
                 break;
-        }
-        try {
-            feature.setDisplay(display);
-        } catch (NullPointerException e) {
-            chooseLanguage();
-            chooseFeatureStrategy();
         }
     } //chooseFeatureStrategy()
 

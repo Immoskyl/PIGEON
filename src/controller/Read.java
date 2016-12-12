@@ -36,7 +36,7 @@ public class Read implements FeatureStrategy {
         display.askForFileToDecrypt();
 
         addressAndText = FileReadMacros.getFileAddressAndText();
-        addressAndText[1] = decryption.decryptString(addressAndText[0]);
+        addressAndText[1] = decryption.decryptString(addressAndText[1]);
 
         display.decryptedText();
         display.display(addressAndText[1]);
