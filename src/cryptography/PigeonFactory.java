@@ -11,6 +11,10 @@ public class PigeonFactory {
        return new PigeonGenerator();
     } //CreatePigeonGenerator()
 
+    public static PigeonGenerator CreatePigeonGenerator(int keyLenght) {
+        return new PigeonGenerator(keyLenght);
+    } //CreatePigeonGenerator()
+
     public static PigeonEncryption CreatePigeonEncryption(List<Double> pigeonList) {
         return new PigeonEncryption(pigeonList);
     } //CreatePigeonEncryption()

@@ -70,8 +70,12 @@ public class EnglishText extends ADisplayLanguage {
         display("Send any feedback or comment to user Immoskyl on GitHub");
     }
 
-    public void askForFile() {
+    public void askForFileToDecrypt() {
         display("Enter the name of the file to decrypt");
+    }
+
+    public void askForFileToEncrypt() {
+        display("Rentrez le nom du fichier à chiffrer");
     }
 
     public void askForPigeon() {
@@ -95,5 +99,9 @@ public class EnglishText extends ADisplayLanguage {
 
     public void fileEmpty() {
         display("This file is empty! Choose another file");
+    }
+
+    public void encryptionSuccessful() {
+        display("Encryption Successful!");
     }
 }

@@ -3,13 +3,10 @@ package controller;
 import cryptography.PigeonDecryption;
 import cryptography.PigeonFactory;
 import cryptography.PigeonGenerator;
+import io.FileReadMacros;
 
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Scanner;
+
 
 /**
  * Created by immoskyl on 11/12/16.
@@ -18,55 +15,21 @@ public class Read implements FeatureStrategy {
 
     private PigeonDecryption decryption;
 
-    private String getFileAddress() {
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextLine();
-    } //getFileAddress()
-
     private void askPigeon() {
-        boolean success = false;
-
         Controller.getInstance().display().askForPigeon();
 
-        while (!success) {
-            try {
-                decryption = PigeonFactory.CreatePigeonDecryption(PigeonGenerator.ParsePigeonKey(askFile()));
-                success = true;
-            } catch (IOException e) {
-                Controller.getInstance().display().fileNotFound();
-            } catch (NumberFormatException e) {
-                Controller.getInstance().display().fileEmpty();
-            }
-        }
+        decryption = PigeonFactory.CreatePigeonDecryption(PigeonGenerator.ParsePigeonKey(FileReadMacros.getFileAddressAndText()[1]));
     }
 
     private void decryptFile() {
-        boolean success = false;
-        String text;
+        String decryptedText;
 
-        Controller.getInstance().display().askForFile();
+        Controller.getInstance().display().askForFileToDecrypt();
 
-        while(!success) {
-            try {
-                text = decryption.decryptString(askFile());
-                success = true;
-                Controller.getInstance().display().decryptedText();
-                Controller.getInstance().display().display(text);
-            } catch (IOException e) {
-                Controller.getInstance().display().fileNotFound();
-            } catch (NumberFormatException e) {
-               Controller.getInstance().display().fileEmpty();
-            }
-        }
-    }
+        decryptedText = decryption.decryptString(FileReadMacros.getFileAddressAndText()[1]);
 
-    private String askFile() throws IOException {
-        return readFile(getFileAddress(), StandardCharsets.UTF_8);
-    }
-
-    private String readFile(String path, Charset encoding) throws IOException {
-        byte[] encoded = Files.readAllBytes(Paths.get(path));
-        return new String(encoded, encoding);
+        Controller.getInstance().display().decryptedText();
+        Controller.getInstance().display().display(decryptedText);
     }
 
     public void execute() {
@@ -78,7 +41,6 @@ public class Read implements FeatureStrategy {
         decryptFile();
 
         do {
-
             Controller.getInstance().display().changePigeon();
 
             intInput = scanner.nextInt();
@@ -94,7 +56,5 @@ public class Read implements FeatureStrategy {
                     break;
             }
         } while (loop);
-
     }
-
 }

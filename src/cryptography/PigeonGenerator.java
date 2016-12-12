@@ -40,7 +40,7 @@ public class PigeonGenerator {
         return Math.sqrt(Math.pow(Math.cos((double) x) * randomWithRange(0.6 , 1.5) + randomWithRange(1.1 , 1.4), 2));
     } //pigeonFormula
 
-    Double randomWithRange(Double min, Double max)
+    private Double randomWithRange(Double min, Double max)
     {
         Double range = (max - min) + 1;
         return (Math.random() * range) + min;

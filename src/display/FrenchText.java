@@ -69,8 +69,12 @@ public class FrenchText extends ADisplayLanguage {
         display("Donnez vos impressions et commentaires à l'utilisateur Immoskyl sur GitHub!");
     }
 
-    public void askForFile() {
+    public void askForFileToDecrypt() {
         display("Rentrez le nom du fichier à déchiffrer");
+    }
+
+    public void askForFileToEncrypt() {
+        display("Rentrez le nom du fichier à chiffrer");
     }
 
     public void askForPigeon() {
@@ -94,5 +98,9 @@ public class FrenchText extends ADisplayLanguage {
 
     public void fileEmpty() {
         display("Ce fichier est vide! Choississez un autre fichier");
+    }
+
+    public void encryptionSuccessful() {
+        display("Chiffrement réussi!");
     }
 }

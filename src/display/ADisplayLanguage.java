@@ -49,7 +49,7 @@ public abstract class ADisplayLanguage {
     public abstract void chooseFeature();
 
     //in Read
-    public abstract void askForFile();
+    public abstract void askForFileToDecrypt();
     public abstract void askForPigeon();
     public abstract void changePigeon();
     public abstract void fileNotFound();
@@ -57,4 +57,8 @@ public abstract class ADisplayLanguage {
     public abstract void decryptedText();
 
     //in Write
+
+    public abstract void askForFileToEncrypt();
+    public abstract void encryptionSuccessful();
+
 }
